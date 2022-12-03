@@ -49,6 +49,9 @@
     <ClCompile Include="Modules\ModuleWindow.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
+    <ClCompile Include="Gui\GuiConsole.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -112,6 +115,9 @@
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Gui\GuiComponent.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiConsole.h">
       <Filter>source\gui</Filter>
     </ClInclude>
   </ItemGroup>
