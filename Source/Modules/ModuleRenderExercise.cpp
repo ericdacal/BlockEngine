@@ -1,9 +1,9 @@
-#include "Globals.h"
-#include "Application.h"
+#include "../Globals.h"
+#include "../Application.h"
 #include "ModuleRenderExercise.h"
 #include "ModuleWindow.h"
 #include "ModuleProgram.h"
-#include "SDL.h"
+#include <SDL.h>
 
 ModuleRenderExercise::ModuleRenderExercise()
 {

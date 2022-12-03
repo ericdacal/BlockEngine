@@ -1,10 +1,10 @@
 #pragma once
 #include "Application.h"
-#include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "ModuleInput.h"
-#include "ModuleProgram.h"
-#include "ModuleRenderExercise.h"
+#include "Modules/ModuleWindow.h"
+#include "Modules/ModuleRender.h"
+#include "Modules/ModuleInput.h"
+#include "Modules/ModuleProgram.h"
+#include "Modules/ModuleRenderExercise.h"
 
 using namespace std;
 

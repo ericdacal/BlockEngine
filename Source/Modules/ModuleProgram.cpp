@@ -1,6 +1,6 @@
 #pragma once
-#include "Globals.h"
-#include "Application.h"
+#include "../Globals.h"
+#include "../Application.h"
 #include "ModuleProgram.h"
 #include<list>
 #include <GL/glew.h>

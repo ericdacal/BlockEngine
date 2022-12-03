@@ -1,8 +1,8 @@
-#include "Globals.h"
-#include "Application.h"
+#include "../Globals.h"
+#include "../Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "SDL/include/SDL.h"
+#include "../SDL/include/SDL.h"
 
 ModuleInput::ModuleInput()
 {}
