@@ -72,6 +72,17 @@ bool ModuleRender::Init()
 		LOG("glewInit failed: %s", glewGetErrorString(err));
 		exit(1);
 	}
+
+	SDL_version compiled;
+	SDL_version linked;
+	SDL_VERSION(&compiled);
+	SDL_GetVersion(&linked);
+
+	LOG("We compiled against SDL version %d.%d.%d \n", compiled.major, compiled.minor, compiled.patch);
+	LOG("But we are linking against SDL version %d.%d.%d\n", linked.major, linked.minor, linked.patch);
+
+
+
 	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
 	LOG("Vendor: %s", glGetString(GL_VENDOR));
 	LOG("Renderer: %s", glGetString(GL_RENDERER));
