@@ -111,6 +111,9 @@
     <ClInclude Include="Modules\ModuleWindow.h">
       <Filter>source\modules</Filter>
     </ClInclude>
+    <ClInclude Include="Gui\GuiComponent.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="source">
