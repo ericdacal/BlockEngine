@@ -62,5 +62,16 @@
     <Filter Include="source\modules">
       <UniqueIdentifier>{17012e1b-fce9-4fe1-aa80-5ea931740dd0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\shaders">
+      <UniqueIdentifier>{006405bb-ac7c-4251-b577-a46c5a4ad6af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\frag.glsl">
+      <Filter>source\shaders</Filter>
+    </None>
+    <None Include="Shaders\vert.glsl">
+      <Filter>source\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
