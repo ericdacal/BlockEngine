@@ -5,6 +5,8 @@
 
 #include "Module.h"
 
+class GuiComponent;
+
 class ModuleGui : public Module
 {
 	public:
@@ -15,5 +17,7 @@ class ModuleGui : public Module
 		update_status Update();
 		update_status PostUpdate();
 		bool CleanUp();	
+	private:
+		std::list<GuiComponent*> components;
 };
 #endif
