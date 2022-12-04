@@ -28,6 +28,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void NewLog(const char*, int priority);
+	void RequestBrowser(const char* url);
 	std::vector<AppLog> GetLogs();
 
 public:

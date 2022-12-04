@@ -52,6 +52,9 @@
     <ClCompile Include="Gui\GuiConsole.cpp">
       <Filter>source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="Gui\GuiMenu.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -118,6 +121,9 @@
       <Filter>source\gui</Filter>
     </ClInclude>
     <ClInclude Include="Gui\GuiConsole.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiMenu.h">
       <Filter>source\gui</Filter>
     </ClInclude>
   </ItemGroup>

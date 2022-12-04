@@ -6,6 +6,7 @@
 #include "Module.h"
 
 class GuiComponent;
+class GuiMenu;
 class GuiConsole;
 
 class ModuleGui : public Module
@@ -18,7 +19,9 @@ class ModuleGui : public Module
 		update_status Update();
 		update_status PostUpdate();
 		bool CleanUp();	
+		GuiMenu* menu;
 		GuiConsole* console;
+		
 	private:
 		std::list<GuiComponent*> components;
 };

@@ -66,6 +66,10 @@ void Application::NewLog(const char* message, int priority) {
 	logs.push_back(tmp);
 }
 
+void  Application::RequestBrowser(const char* url) {
+	ShellExecute(0, "open", url, 0, 0, 1);
+}
+
 std::vector<AppLog> Application::GetLogs() {
 	return logs;
 }

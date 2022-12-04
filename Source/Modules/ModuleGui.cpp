@@ -2,6 +2,7 @@
 #include "ModuleGui.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
+#include "../Gui/GuiMenu.h"
 #include "../Gui/GuiConsole.h"
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
@@ -37,8 +38,11 @@ bool ModuleGui::Init()
 	// Setup Platform/Renderer backends
 	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
 	ImGui_ImplOpenGL3_Init(glsl_version);
-
+	
+	
+	menu = new GuiMenu();
 	components.push_back(console = new GuiConsole());
+
 
 	return true;
 }
@@ -69,6 +73,7 @@ update_status ModuleGui::PreUpdate()
 update_status ModuleGui::Update()
 {
 	bool ret = true;
+	menu->Draw();
 	for (std::list<GuiComponent*>::iterator it = components.begin(); it != components.end() && ret; ++it) {
 		(*it)->Init();
 		(*it)->Draw();
