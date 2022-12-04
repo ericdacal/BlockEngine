@@ -55,6 +55,21 @@ update_status Application::Update()
 	return ret;
 }
 
+void Application::NewLog(const char* message, int priority) {
+	// current date/time based on current system
+	time_t now = time(0);
+
+	// convert now to string form
+	char* dt = ctime(&now);
+
+	struct AppLog tmp = { message, priority, dt };
+	logs.push_back(tmp);
+}
+
+std::vector<AppLog> Application::GetLogs() {
+	return logs;
+}
+
 bool Application::CleanUp()
 {
 	bool ret = true;

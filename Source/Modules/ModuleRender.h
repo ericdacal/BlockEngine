@@ -1,4 +1,7 @@
 #pragma once
+#ifndef Module_Render_h
+#define Module_Render_h
+
 #include "Module.h"
 #include "../Globals.h"
 
@@ -20,3 +23,4 @@ public:
 	void WindowResized(unsigned width, unsigned height);
 	void* context;
 };
+#endif

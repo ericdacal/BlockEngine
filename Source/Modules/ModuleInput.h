@@ -1,4 +1,7 @@
 #pragma once
+#ifndef Module_Input_h
+#define Module_Input_h
+
 #include "Module.h"
 #include "../Globals.h"
 
@@ -18,3 +21,4 @@ public:
 private:
 	const Uint8 *keyboard = NULL;
 };
+#endif

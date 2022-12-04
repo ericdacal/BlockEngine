@@ -13,6 +13,14 @@ enum update_status
 	UPDATE_ERROR
 };
 
+
+struct AppLog {
+	const char* message;
+	const int type;
+	const char* time;
+};
+
+
 // Configuration -----------
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480

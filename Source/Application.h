@@ -1,6 +1,10 @@
 #pragma once
+#ifndef Application_h
+#define Application_h
 
 #include <list>
+#include <vector>
+#include <ctime>
 #include "Globals.h"
 #include "Modules/Module.h"
 
@@ -12,6 +16,7 @@ class ModuleRenderExercise;
 class ModuleGui;
 class ModuleProgram;
 
+
 class Application
 {
 public:
@@ -22,6 +27,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+	void NewLog(const char*, int priority);
+	std::vector<AppLog> GetLogs();
 
 public:
 	ModuleRender* renderer = nullptr;
@@ -30,11 +37,14 @@ public:
 	ModuleProgram* program = nullptr;
 	ModuleRenderExercise* exercise = nullptr;
 	ModuleGui* gui = nullptr;
+	
 
 private:
 
 	std::list<Module*> modules;
-
+	std::vector<AppLog> logs;
+	
 };
 
 extern Application* App;
+#endif

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef Gui_Console_h
+#define Gui_Console_h
+
 #include "GuiComponent.h"
 #include <vector>
 
@@ -12,3 +15,4 @@ public:
 	}
 	bool Draw();
 };
+#endif

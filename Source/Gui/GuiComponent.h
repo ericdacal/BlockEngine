@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Gui_Component_h
+#define Gui_Component_h
 
 #include "../Globals.h"
 #include <imgui.h>
@@ -37,3 +39,4 @@ public:
 private:
 	const char *title;
 };
+#endif

@@ -1,4 +1,7 @@
 #pragma once
+#ifndef Module_Render_Exercise_h
+#define Module_Render_Exercise_h
+
 #include "Module.h"
 #include "../Globals.h"
 #include<list>
@@ -28,3 +31,4 @@ private:
 	char* LoadShaderSource(const char* shader_file_name);
 	unsigned CompileShader(unsigned type, const char* source);
 };
+#endif

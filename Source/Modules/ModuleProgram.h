@@ -1,4 +1,7 @@
 #pragma once
+#ifndef Module_Program_h
+#define Module_Program_h
+
 #include "Module.h"
 #include "../Globals.h"
 
@@ -15,3 +18,4 @@ public:
 
 	unsigned CreateProgram(unsigned vtx_shader, unsigned frg_shader);
 };
+#endif
