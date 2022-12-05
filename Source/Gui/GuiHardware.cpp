@@ -1,9 +1,10 @@
 #include "GuiHardware.h"
-#include "SDL.h"
 #include "../Application.h"
 #include <iostream>
 #include <math.h>
 #include <string>
+#include <SDL.h>
+#include <GL/glew.h>
 
 
 

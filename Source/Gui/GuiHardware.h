@@ -1,7 +1,6 @@
 #pragma once
 #include "GuiComponent.h"
-#include <vector>
-#include <GL/glew.h>
+
 
 
 class GuiHardware : public GuiComponent

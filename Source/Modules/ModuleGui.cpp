@@ -6,6 +6,7 @@
 #include "../Gui/GuiConsole.h"
 #include "../Gui/GuiConfiguration.h"
 #include "../Gui/GuiHardware.h"
+#include "../Gui/GuiAbout.h"
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_opengl3.h>
 
@@ -20,6 +21,7 @@ ModuleGui::ModuleGui()
 ModuleGui::~ModuleGui()
 {
 }
+
 
 
 // Called before render is available
@@ -45,6 +47,7 @@ bool ModuleGui::Init()
 	components.push_back(console = new GuiConsole());
 	components.push_back(config = new GuiConfiguration());
 	components.push_back(hardware = new GuiHardware());
+	components.push_back(about = new GuiAbout());
 
 
 	return true;

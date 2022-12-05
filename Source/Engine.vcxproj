@@ -145,6 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Gui\GuiAbout.cpp" />
     <ClCompile Include="Gui\GuiConfiguration.cpp" />
     <ClCompile Include="Gui\GuiConsole.cpp" />
     <ClCompile Include="Gui\GuiHardware.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Dummy.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Gui\GuiAbout.h" />
     <ClInclude Include="Gui\GuiComponent.h" />
     <ClInclude Include="Gui\GuiConfiguration.h" />
     <ClInclude Include="Gui\GuiConsole.h" />

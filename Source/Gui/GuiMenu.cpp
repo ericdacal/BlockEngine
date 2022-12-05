@@ -1,6 +1,7 @@
 #include "GuiMenu.h"
 #include "../Application.h"
 #include "../Modules/ModuleGui.h"
+#include "GuiAbout.h"
 #include "GuiConsole.h"
 #include "GuiConfiguration.h"
 #include "GuiHardware.h"
@@ -22,7 +23,9 @@ bool GuiMenu::Draw()
 			if (ImGui::MenuItem("Report a bug")) {
 				App->RequestBrowser("https://github.com/ericdacal/BlockEngine");
 			}
-			if (ImGui::MenuItem("About")) {}
+			if (ImGui::MenuItem("About")) {
+				App->gui->about->active = true;
+			}
 			ImGui::EndMenu();
 		}
 
