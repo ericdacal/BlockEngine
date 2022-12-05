@@ -147,6 +147,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Gui\GuiConfiguration.cpp" />
     <ClCompile Include="Gui\GuiConsole.cpp" />
+    <ClCompile Include="Gui\GuiHardware.cpp" />
     <ClCompile Include="Gui\GuiMenu.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Gui\GuiComponent.h" />
     <ClInclude Include="Gui\GuiConfiguration.h" />
     <ClInclude Include="Gui\GuiConsole.h" />
+    <ClInclude Include="Gui\GuiHardware.h" />
     <ClInclude Include="Gui\GuiMenu.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />

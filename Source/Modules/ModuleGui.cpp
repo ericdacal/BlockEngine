@@ -5,7 +5,7 @@
 #include "../Gui/GuiMenu.h"
 #include "../Gui/GuiConsole.h"
 #include "../Gui/GuiConfiguration.h"
-#include <imgui.h>
+#include "../Gui/GuiHardware.h"
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_opengl3.h>
 
@@ -44,6 +44,7 @@ bool ModuleGui::Init()
 	menu = new GuiMenu();
 	components.push_back(console = new GuiConsole());
 	components.push_back(config = new GuiConfiguration());
+	components.push_back(hardware = new GuiHardware());
 
 
 	return true;

@@ -14,11 +14,13 @@ enum update_status
 };
 
 
+
 struct AppLog {
 	const char* message;
 	const int type;
 	const char* time;
 };
+
 
 
 // Configuration -----------

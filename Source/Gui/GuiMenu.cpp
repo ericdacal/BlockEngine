@@ -3,6 +3,7 @@
 #include "../Modules/ModuleGui.h"
 #include "GuiConsole.h"
 #include "GuiConfiguration.h"
+#include "GuiHardware.h"
 
 bool GuiMenu::Draw()
 {
@@ -31,6 +32,9 @@ bool GuiMenu::Draw()
 			
 			}
 			if (ImGui::Checkbox("Console", &App->gui->console->active)) {
+
+			}
+			if (ImGui::Checkbox("Hardware", &App->gui->hardware->active)) {
 
 			}
 			ImGui::EndMenu();

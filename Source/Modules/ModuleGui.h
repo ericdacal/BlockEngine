@@ -9,6 +9,7 @@ class GuiComponent;
 class GuiMenu;
 class GuiConsole;
 class GuiConfiguration;
+class GuiHardware;
 
 class ModuleGui : public Module
 {
@@ -23,6 +24,7 @@ class ModuleGui : public Module
 		GuiMenu* menu;
 		GuiConsole* console;
 		GuiConfiguration* config;
+		GuiHardware* hardware;
 		
 	private:
 		std::list<GuiComponent*> components;
