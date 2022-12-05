@@ -14,6 +14,7 @@ public:
 	{
 	}
 	bool Draw();
+	static int maxFps;
 	static bool fullDesktop;
 	static bool resizable;
 	static bool borderless;

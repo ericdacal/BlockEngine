@@ -30,6 +30,7 @@ public:
 	void NewLog(const char*, int priority);
 	void RequestBrowser(const char* url);
 	std::vector<AppLog> GetLogs();
+	void setMaxFrameRate(float maxFps);
 
 public:
 	ModuleRender* renderer = nullptr;
@@ -43,10 +44,12 @@ public:
 	
 
 private:
-
 	std::list<Module*> modules;
 	std::vector<AppLog> logs;
-	
+
+	//Elapsed time between frames
+	float elapsed;
+	int maxFps;
 };
 
 extern Application* App;

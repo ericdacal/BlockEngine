@@ -10,6 +10,7 @@ bool GuiConfiguration::fullscreen = false;
 float GuiConfiguration::brightness = 1.0f;
 int GuiConfiguration::width = 1280;
 int GuiConfiguration::height = 720;
+int GuiConfiguration::maxFps = 0;
 
 bool GuiConfiguration::fullDesktop = false;
 bool GuiConfiguration::resizable = true;
@@ -26,6 +27,8 @@ bool GuiConfiguration::Draw()
 
 		char organization[25] = "Example Organization";
 		ImGui::InputText("Organization", &organization[0], 25);
+
+		if (ImGui::SliderInt("Max FPS", &maxFps, 0, 100)) App->setMaxFrameRate(maxFps);
 
 		char title[25];
 		sprintf_s(title, 25, "Framerate %.1f", App->fps[App->fps.size() - 1]);

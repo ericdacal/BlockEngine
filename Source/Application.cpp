@@ -45,20 +45,32 @@ update_status Application::Update()
 	Uint64 start = SDL_GetPerformanceCounter();
 	if (fps.size() > 80) fps.erase(fps.begin());
 	if (milliseconds.size() > 80) milliseconds.erase(milliseconds.begin());
-
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PreUpdate();
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->Update();
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PostUpdate();
 	Uint64 end = SDL_GetPerformanceCounter();
-	float elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
+	elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
 	milliseconds.push_back(elapsed * 1000);
 	fps.push_back(1.0f / elapsed);
+	if (maxFps > 0) {
+		float milliseconds_limit = 1000.f / maxFps;
+		LOG("ELAPSED: %f", elapsed * 1000);
+		LOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
+		LOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
+		if (elapsed < milliseconds_limit) {
+			SDL_Delay(milliseconds_limit - (elapsed * 1000));
+		}
+	}
 	return ret;
+}
+
+void Application::setMaxFrameRate(float maxFps) {
+	this->maxFps = maxFps;
 }
 
 void Application::NewLog(const char* message, int priority) {
