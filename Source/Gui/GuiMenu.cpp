@@ -1,7 +1,8 @@
 #include "GuiMenu.h"
 #include "../Application.h"
 #include "../Modules/ModuleGui.h"
-#include "../Gui/GuiConfiguration.h"
+#include "GuiConsole.h"
+#include "GuiConfiguration.h"
 
 bool GuiMenu::Draw()
 {
@@ -28,6 +29,9 @@ bool GuiMenu::Draw()
 		{
 			if (ImGui::Checkbox("Configuration", &App->gui->config->active)) {
 			
+			}
+			if (ImGui::Checkbox("Console", &App->gui->console->active)) {
+
 			}
 			ImGui::EndMenu();
 		}
