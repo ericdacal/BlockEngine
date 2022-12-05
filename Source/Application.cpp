@@ -42,6 +42,9 @@ bool Application::Init()
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
+	Uint64 start = SDL_GetPerformanceCounter();
+	if (fps.size() > 80) fps.erase(fps.begin());
+	if (milliseconds.size() > 80) milliseconds.erase(milliseconds.begin());
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PreUpdate();
@@ -51,7 +54,10 @@ update_status Application::Update()
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PostUpdate();
-
+	Uint64 end = SDL_GetPerformanceCounter();
+	float elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
+	milliseconds.push_back(elapsed * 1000);
+	fps.push_back(1.0f / elapsed);
 	return ret;
 }
 

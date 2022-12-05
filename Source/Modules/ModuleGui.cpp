@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "../Gui/GuiMenu.h"
 #include "../Gui/GuiConsole.h"
+#include "../Gui/GuiConfiguration.h"
 #include <imgui.h>
 #include <imgui_impl_sdl.h>
 #include <imgui_impl_opengl3.h>
@@ -42,6 +43,7 @@ bool ModuleGui::Init()
 	
 	menu = new GuiMenu();
 	components.push_back(console = new GuiConsole());
+	components.push_back(config = new GuiConfiguration());
 
 
 	return true;
@@ -75,9 +77,11 @@ update_status ModuleGui::Update()
 	bool ret = true;
 	menu->Draw();
 	for (std::list<GuiComponent*>::iterator it = components.begin(); it != components.end() && ret; ++it) {
-		(*it)->Init();
-		(*it)->Draw();
-		(*it)->Close();
+		if ((*it)->active) {
+			(*it)->Init();
+			(*it)->Draw();
+			(*it)->Close();
+		}
 	}
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

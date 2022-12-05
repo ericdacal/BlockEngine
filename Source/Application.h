@@ -38,6 +38,8 @@ public:
 	ModuleProgram* program = nullptr;
 	ModuleRenderExercise* exercise = nullptr;
 	ModuleGui* gui = nullptr;
+	std::vector<float> fps;
+	std::vector<float> milliseconds;
 	
 
 private:

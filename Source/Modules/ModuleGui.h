@@ -8,6 +8,7 @@
 class GuiComponent;
 class GuiMenu;
 class GuiConsole;
+class GuiConfiguration;
 
 class ModuleGui : public Module
 {
@@ -21,6 +22,7 @@ class ModuleGui : public Module
 		bool CleanUp();	
 		GuiMenu* menu;
 		GuiConsole* console;
+		GuiConfiguration* config;
 		
 	private:
 		std::list<GuiComponent*> components;

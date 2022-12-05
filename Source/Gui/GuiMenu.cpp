@@ -1,6 +1,7 @@
 #include "GuiMenu.h"
 #include "../Application.h"
-
+#include "../Modules/ModuleGui.h"
+#include "../Gui/GuiConfiguration.h"
 
 bool GuiMenu::Draw()
 {
@@ -22,6 +23,15 @@ bool GuiMenu::Draw()
 			if (ImGui::MenuItem("About")) {}
 			ImGui::EndMenu();
 		}
+
+		if (ImGui::BeginMenu("Windows"))
+		{
+			if (ImGui::Checkbox("Configuration", &App->gui->config->active)) {
+			
+			}
+			ImGui::EndMenu();
+		}
+
 
 		ImGui::EndMainMenuBar();
 	}

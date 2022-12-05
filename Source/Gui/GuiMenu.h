@@ -1,4 +1,6 @@
 #pragma once
+#ifndef Gui_Menu_h
+#define Gui_Menu_h
 #include "GuiComponent.h"
 #include <vector>
 
@@ -11,4 +13,6 @@ public:
 	{
 	}
 	bool Draw();
+
 };
+#endif

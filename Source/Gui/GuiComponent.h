@@ -34,9 +34,10 @@ public:
 		ImGui::End();
 		return true;
 	}
-
+	bool active;
 
 private:
 	const char *title;
+
 };
 #endif
