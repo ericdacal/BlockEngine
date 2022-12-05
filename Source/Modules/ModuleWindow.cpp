@@ -1,5 +1,5 @@
-#include "Globals.h"
-#include "Application.h"
+#include "../Globals.h"
+#include "../Application.h"
 #include "ModuleWindow.h"
 
 ModuleWindow::ModuleWindow()
@@ -27,7 +27,7 @@ bool ModuleWindow::Init()
 		//Create window
 		int width = SCREEN_WIDTH;
 		int height = SCREEN_HEIGHT;
-		Uint32 flags = SDL_WINDOW_SHOWN |  SDL_WINDOW_OPENGL;
+		Uint32 flags = SDL_WINDOW_SHOWN |  SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
 
 		if(FULLSCREEN == true)
 		{
@@ -51,6 +51,47 @@ bool ModuleWindow::Init()
 
 	return ret;
 }
+
+bool ModuleWindow::SetResizable(bool resizable)
+{
+	if (resizable)
+		SDL_SetWindowResizable(window, SDL_TRUE);
+	else
+		SDL_SetWindowResizable(window, SDL_FALSE);
+	return true;
+}
+
+bool ModuleWindow::SetFullscreen(bool fullscreen)
+{
+	if (fullscreen)
+		SDL_SetWindowFullscreen(window, SDL_TRUE);
+	else
+		SDL_SetWindowFullscreen(window, SDL_FALSE);
+	return true;
+}
+
+
+bool  ModuleWindow::SetBorderless(bool borderless)
+{
+	if (borderless)
+		SDL_SetWindowBordered(window, SDL_FALSE);
+	else
+		SDL_SetWindowBordered(window, SDL_TRUE);
+	return true;
+}
+
+bool  ModuleWindow::SetBrightness(float brightness)
+{
+	SDL_SetWindowBrightness(window, brightness);
+
+	return true;
+}
+void ModuleWindow::SetWindowSize(int width, int height) {
+	SDL_SetWindowSize(window, width, height);
+}
+
+
+
 
 // Called before quitting
 bool ModuleWindow::CleanUp()

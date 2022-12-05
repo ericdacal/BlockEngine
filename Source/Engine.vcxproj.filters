@@ -10,20 +10,59 @@
     <ClCompile Include="Main.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_sdl.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>source\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\ModuleGui.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleProgram.cpp">
+    <ClCompile Include="Modules\ModuleInput.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleRender.cpp">
+    <ClCompile Include="Modules\ModuleProgram.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleRenderExercise.cpp">
+    <ClCompile Include="Modules\ModuleRender.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
+    <ClCompile Include="Modules\ModuleRenderExercise.cpp">
       <Filter>source\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Modules\ModuleWindow.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\GuiConsole.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\GuiMenu.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\GuiConfiguration.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\GuiHardware.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui\GuiAbout.cpp">
+      <Filter>source\gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -36,23 +75,74 @@
     <ClInclude Include="Globals.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
+    <ClInclude Include="imgui\imconfig.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_opengl3_loader.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_sdl.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_impl_sdlrenderer.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui_internal.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_rectpack.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_textedit.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>source\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\Module.h">
       <Filter>source\modules</Filter>
     </ClInclude>
-    <ClInclude Include="Module.h">
+    <ClInclude Include="Modules\ModuleGui.h">
       <Filter>source\modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleInput.h">
+    <ClInclude Include="Modules\ModuleInput.h">
       <Filter>source\modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleProgram.h">
+    <ClInclude Include="Modules\ModuleProgram.h">
       <Filter>source\modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleRender.h">
+    <ClInclude Include="Modules\ModuleRender.h">
       <Filter>source\modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleRenderExercise.h">
+    <ClInclude Include="Modules\ModuleRenderExercise.h">
       <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\ModuleWindow.h">
+      <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiComponent.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiConsole.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiMenu.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiConfiguration.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiHardware.h">
+      <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiAbout.h">
+      <Filter>source\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +154,12 @@
     </Filter>
     <Filter Include="source\shaders">
       <UniqueIdentifier>{006405bb-ac7c-4251-b577-a46c5a4ad6af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\imgui">
+      <UniqueIdentifier>{f14710df-6546-46c5-a198-9a3201b8eadf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\gui">
+      <UniqueIdentifier>{25381a86-1e43-48b3-9e74-2fc390697773}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

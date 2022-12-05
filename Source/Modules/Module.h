@@ -1,6 +1,8 @@
 #pragma once
 
-#include "Globals.h"
+#ifndef Module_h
+#define Module_h
+#include "../Globals.h"
 
 class Application;
 
@@ -37,3 +39,4 @@ public:
 		return true; 
 	}
 };
+#endif

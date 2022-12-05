@@ -1,10 +1,11 @@
 #pragma once
 #include "Application.h"
-#include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "ModuleInput.h"
-#include "ModuleProgram.h"
-#include "ModuleRenderExercise.h"
+#include "Modules/ModuleWindow.h"
+#include "Modules/ModuleRender.h"
+#include "Modules/ModuleInput.h"
+#include "Modules/ModuleProgram.h"
+#include "Modules/ModuleRenderExercise.h"
+#include "Modules/ModuleGui.h"
 
 using namespace std;
 
@@ -16,6 +17,8 @@ Application::Application()
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(program = new ModuleProgram());
 	modules.push_back(exercise = new ModuleRenderExercise());
+	modules.push_back(gui = new ModuleGui());
+	
 }
 
 Application::~Application()
@@ -39,17 +42,54 @@ bool Application::Init()
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
-
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	Uint64 start = SDL_GetPerformanceCounter();
+	if (fps.size() > 80) fps.erase(fps.begin());
+	if (milliseconds.size() > 80) milliseconds.erase(milliseconds.begin());
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PreUpdate();
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->Update();
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PostUpdate();
-
+	Uint64 end = SDL_GetPerformanceCounter();
+	elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
+	milliseconds.push_back(elapsed * 1000);
+	fps.push_back(1.0f / elapsed);
+	if (maxFps > 0) {
+		float milliseconds_limit = 1000.f / maxFps;
+		LOG("ELAPSED: %f", elapsed * 1000);
+		LOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
+		LOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
+		if (elapsed < milliseconds_limit) {
+			SDL_Delay(milliseconds_limit - (elapsed * 1000));
+		}
+	}
 	return ret;
+}
+
+void Application::setMaxFrameRate(float maxFps) {
+	this->maxFps = maxFps;
+}
+
+void Application::NewLog(const char* message, int priority) {
+	// current date/time based on current system
+	time_t now = time(0);
+
+	// convert now to string form
+	char* dt = ctime(&now);
+
+	struct AppLog tmp = { message, priority, dt };
+	logs.push_back(tmp);
+}
+
+void  Application::RequestBrowser(const char* url) {
+	ShellExecute(0, "open", url, 0, 0, 1);
+}
+
+std::vector<AppLog> Application::GetLogs() {
+	return logs;
 }
 
 bool Application::CleanUp()

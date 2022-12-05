@@ -1,6 +1,9 @@
 #pragma once
+#ifndef Module_Program_h
+#define Module_Program_h
+
 #include "Module.h"
-#include "Globals.h"
+#include "../Globals.h"
 
 
 struct SDL_Texture;
@@ -15,3 +18,4 @@ public:
 
 	unsigned CreateProgram(unsigned vtx_shader, unsigned frg_shader);
 };
+#endif

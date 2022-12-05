@@ -2,7 +2,7 @@
 #define __ModuleWindow_H__
 
 #include "Module.h"
-#include "SDL/include/SDL.h"
+#include <SDL.h>
 
 class Application;
 
@@ -20,6 +20,16 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
+
+	bool SetResizable(bool resizable);
+
+	bool SetFullscreen(bool fullscreen);
+
+	bool SetBorderless(bool borderless);
+
+	bool SetBrightness(float brightness);
+
+	void SetWindowSize(int width, int height);
 
 public:
 	//The window we'll be rendering to

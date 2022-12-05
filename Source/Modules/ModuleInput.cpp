@@ -1,8 +1,8 @@
-#include "Globals.h"
-#include "Application.h"
+#include "../Globals.h"
+#include "../Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "SDL/include/SDL.h"
+#include "../SDL/include/SDL.h"
 
 ModuleInput::ModuleInput()
 {}
@@ -15,6 +15,7 @@ ModuleInput::~ModuleInput()
 bool ModuleInput::Init()
 {
 	LOG("Init SDL input event system");
+    App->NewLog("Init SDL input event system", 0);
 	bool ret = true;
 	SDL_Init(0);
 
@@ -54,6 +55,7 @@ update_status ModuleInput::Update()
 bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
+    App->NewLog("Quitting SDL input event subsystem", 0);
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
 }
