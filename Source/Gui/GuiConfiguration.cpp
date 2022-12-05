@@ -21,7 +21,7 @@ bool GuiConfiguration::Draw()
 {
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		char engine[25] = "Example App";
+		char engine[25] = "Block Engine";
 		ImGui::InputText("App Name", &engine[0], 25);
 
 		char organization[25] = "Example Organization";
