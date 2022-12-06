@@ -23,8 +23,6 @@ public:
 
 	void SetFOV();
 	void SetAspectRatio();
-	void SetPlaneDistances();
-	Frustum* GetFustrum();
 	float4x4 GetProjectionMatrix();
 	float4x4 GetViewMatrix();
 
