@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleCameraEditor.h"
 #include "../SDL/include/SDL.h"
+#include <imgui_impl_sdl.h>
 
 ModuleInput::ModuleInput()
 {}
@@ -32,12 +33,9 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::Update()
 {
-    if (!leftMouseButton or !leftAltButton) {
-        SDL_SetRelativeMouseMode(SDL_FALSE);
-    }
+   
     leftAltButton = false;
     leftMouseButton = false;
-    SDL_PumpEvents();
     // Computation of deltaTime
     Uint64 currentFrame = SDL_GetPerformanceCounter();
 
@@ -45,6 +43,7 @@ update_status ModuleInput::Update()
     lastFrame = currentFrame;
 
     float currentSpeed = (cameraSpeed * deltaTime);
+    SDL_Event sdlEvent;
     Frustum* f = App->camEditor->GetFustrum();
 
     float3 up = f->up;
@@ -132,10 +131,13 @@ update_status ModuleInput::Update()
         APPLOG("MOUSE RIGHT CLICK");
     }
 
-
-    SDL_Event sdlEvent;
     while (SDL_PollEvent(&sdlEvent) != 0)
     {
+        /*if (!leftMouseButton or !leftAltButton) {
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+            App->camEditor->changeCameraMode(0);
+        }*/
+        ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
         switch (sdlEvent.type)
         {
             case SDL_QUIT:
@@ -145,11 +147,21 @@ update_status ModuleInput::Update()
                 if (sdlEvent.window.event == SDL_WINDOWEVENT_RESIZED || sdlEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
                     App->renderer->WindowResized(sdlEvent.window.data1, sdlEvent.window.data2);
                 break;
+            case SDL_MOUSEWHEEL:
+                APPLOG("MOUSE WHEEL: %d", sdlEvent.wheel.y);
+                App->camEditor->zoom(-sdlEvent.wheel.y);
+                App->camEditor->ReloadViewMatrix();
+                break;
             case SDL_MOUSEMOTION:
                 if (leftMouseButton && leftAltButton) {
                     SDL_SetRelativeMouseMode(SDL_TRUE);
+                    App->camEditor->changeCameraMode(1);
+                    App->camEditor->rotateAzimuth(sdlEvent.motion.xrel * 0.001);
+                    App->camEditor->rotatePolar(sdlEvent.motion.yrel * 0.001);
+                    App->camEditor->ReloadViewMatrix();
                 }
                 break;
+            ;
         }
     }
 

@@ -25,6 +25,13 @@ bool ModuleCameraEditor::Init()
     APPLOG("Creating camera matrix, view and projection");
     bool ret = true;
 
+    center = float3(0.f, 0.f, 0.f);
+    radius = 20.f;
+    minRadius = 5.f;
+    maxRadius = 30.f;
+    azimuthAngle = 0.f;
+    polarAngle = 0.f;
+
     f.pos = float3(0.0f, 1.0f, 8.0f);
     f.front = -float3::unitZ;
     f.up = float3::unitY;
@@ -75,6 +82,10 @@ Frustum* ModuleCameraEditor::GetFustrum() {
 bool ModuleCameraEditor::CleanUp()
 {
     return true;
+}
+
+void ModuleCameraEditor::changeCameraMode(int mode) {
+    this->mode = mode;
 }
 
 

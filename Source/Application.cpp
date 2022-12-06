@@ -14,13 +14,15 @@ using namespace std;
 Application::Application()
 {
 	modules.push_back(window = new ModuleWindow());
-	modules.push_back(camEditor = new ModuleCameraEditor());
 	modules.push_back(renderer = new ModuleRender());
-	modules.push_back(input = new ModuleInput());
 	modules.push_back(program = new ModuleProgram());
-	modules.push_back(gui = new ModuleGui());
+	modules.push_back(input = new ModuleInput());
+	
+	
+	modules.push_back(camEditor = new ModuleCameraEditor());
 	modules.push_back(exercise = new ModuleRenderExercise());
 	modules.push_back(debugDraw = new ModuleDebugDraw());
+	modules.push_back(gui = new ModuleGui());
 }
 
 Application::~Application()
@@ -59,7 +61,7 @@ update_status Application::Update()
 	elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
 	milliseconds.push_back(elapsed * 1000);
 	fps.push_back(1.0f / elapsed);
-	if (maxFps > 0) {
+	/*if (maxFps > 0) {
 		float milliseconds_limit = 1000.f / maxFps;
 		APPLOG("ELAPSED: %f", elapsed * 1000);
 		APPLOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
@@ -67,7 +69,7 @@ update_status Application::Update()
 		if (elapsed < milliseconds_limit) {
 			SDL_Delay(milliseconds_limit - (elapsed * 1000));
 		}
-	}
+	}*/
 	return ret;
 }
 
