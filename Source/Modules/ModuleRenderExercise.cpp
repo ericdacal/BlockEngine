@@ -131,6 +131,13 @@ unsigned ModuleRenderExercise::CompileShader(unsigned type, const char* source)
 	return shader_id;
 }
 
+float4x4 ModuleRenderExercise::GetViewMatrix() {
+	return viewMatrix;
+}
+
+float4x4 ModuleRenderExercise::GetProjectionMatrix() {
+	return projectionMatrix;
+}
 
 float4x4 ModuleRenderExercise::LookAt(float3 eye, float3 at, float3 up)
 {
@@ -178,13 +185,13 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 
 
 	float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
-	float4x4 view = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
-	float4x4 proj = frustum.ProjectionMatrix();
+	viewMatrix = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
+	projectionMatrix = frustum.ProjectionMatrix();
 	
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &view[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &proj[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &viewMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &projectionMatrix[0][0]);
 	// 1 triangle to draw = 3 vertices
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

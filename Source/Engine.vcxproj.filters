@@ -64,6 +64,9 @@
     <ClCompile Include="Gui\GuiAbout.cpp">
       <Filter>source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\ModuleDebugDraw.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -143,6 +146,15 @@
     </ClInclude>
     <ClInclude Include="Gui\GuiAbout.h">
       <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\ModuleDebugDraw.h">
+      <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="debug_draw.hpp">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="debugdraw.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

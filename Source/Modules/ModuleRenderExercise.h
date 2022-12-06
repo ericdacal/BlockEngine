@@ -21,6 +21,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
+	float4x4 GetViewMatrix();
+	float4x4 GetProjectionMatrix();
 
 private:
 	float4x4 LookAt(float3 eye, float3 at, float3 up);
@@ -32,5 +34,6 @@ private:
 	void DestroyVBO(unsigned vbo);
 	char* LoadShaderSource(const char* shader_file_name);
 	unsigned CompileShader(unsigned type, const char* source);
+	float4x4 viewMatrix, projectionMatrix;
 };
 #endif
