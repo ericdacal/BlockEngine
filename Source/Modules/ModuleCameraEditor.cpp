@@ -82,6 +82,45 @@ float4x4 ModuleCameraEditor::GetProjectionMatrix() {
     return f.ProjectionMatrix();
 }
 
+void ModuleCameraEditor::zoom(const float units) {
+    radius += units;
+    if (radius < minRadius) radius = minRadius;
+    if (radius > maxRadius) radius = maxRadius;
+    float3 pos = getPositionCartesian();
+    f.pos = pos;
+}
+
+
+void  ModuleCameraEditor::rotatePolar(const float radians) {
+    polarAngle += radians;
+    if (toDegrees(polarAngle) < -90.f) polarAngle = toRadians(-89.999f);
+    if (toDegrees(polarAngle) > 90.f) polarAngle = toRadians(89.999f);
+    float3 pos = getPositionCartesian();
+    f.pos = pos;
+}
+
+void  ModuleCameraEditor::rotateAzimuth(const float radians) {
+    azimuthAngle += radians;
+    float3 pos = getPositionCartesian();
+    //f.pos = pos;
+
+    float3x3 rotationMatrix = float3x3::identity;
+    rotationMatrix = rotationMatrix.LookAt(-float3::unitX, calculateEye(), float3::unitY, float3::unitY);
+
+    float3 oldFront = f.front.Normalized();
+    f.front = (rotationMatrix.MulDir(oldFront));
+    float3 oldUp = f.up.Normalized();
+    f.up = (rotationMatrix.MulDir(oldUp));
+}
+
+float3 ModuleCameraEditor::calculateEye() {
+    return float3(center.x + radius * cos(polarAngle) * cos(azimuthAngle), center.y + radius * sin(polarAngle), center.z + radius * cos(polarAngle) * sin(azimuthAngle));
+}
+
+float3 ModuleCameraEditor::getPositionCartesian() {
+    return float3(center.x + radius * cos(polarAngle) * cos(azimuthAngle), center.y + radius * sin(polarAngle), center.z + radius * cos(polarAngle) * sin(azimuthAngle));
+}
+
 
 
 float4x4 ModuleCameraEditor::LookAt(float3 eye, float3 at, float3 up)
@@ -106,4 +145,11 @@ float4x4 ModuleCameraEditor::GetViewMatrix() {
 void ModuleCameraEditor::ReloadViewMatrix() {
     if (mode == 0) view = f.ViewMatrix();
     else view = LookAt(f.pos, float3(0.f, 0.f, 0.f), float3::unitY);
+}
+
+float ModuleCameraEditor::toRadians(float degrees) {
+    return degrees * (pi / 180);
+}
+float ModuleCameraEditor::toDegrees(float radians) {
+    return radians * (180 / pi);
 }

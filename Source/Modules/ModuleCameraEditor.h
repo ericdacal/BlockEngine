@@ -29,7 +29,25 @@ public:
 	Frustum* GetFustrum();
 	void ReloadViewMatrix();
 
+	// Function to orbit camara
+	void zoom(const float units);
+	void rotateAzimuth(const float radians);
+	void rotatePolar(const float radians);
+
 private:
+
+	// Spherical coordinates 
+	float3 center;
+	float radius; // Radius of the orbit camera sphere
+	float minRadius; // Minimal radius of the orbit camera sphere (cannot fall below this value)
+	float maxRadius;
+	float azimuthAngle; // Azimuth angle on the orbit camera sphere
+	float polarAngle; // Polar angle on the orbit camera sphere
+	float3 getPositionCartesian();
+	float3 calculateEye();
+	float toRadians(float degrees);
+	float toDegrees(float radians);
+
 	// LookAt glm approach
 	float4x4 LookAt(float3 eye, float3 at, float3 up);
 	
