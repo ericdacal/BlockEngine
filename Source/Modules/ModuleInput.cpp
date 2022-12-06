@@ -95,6 +95,24 @@ update_status ModuleInput::Update()
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
         App->camEditor->ReloadViewMatrix();
     }
+    if (keyboard[SDL_SCANCODE_RIGHT]) {
+        float3x3 rotationDeltaMatrix = float3x3::identity;
+        rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-0.01f * currentSpeed);
+        float3 oldFront = f->front.Normalized();
+        f->front = (rotationDeltaMatrix.MulDir(oldFront));
+        float3 oldUp = f->up.Normalized();
+        f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->ReloadViewMatrix();
+    }
+    if (keyboard[SDL_SCANCODE_LEFT]) {
+        float3x3 rotationDeltaMatrix = float3x3::identity;
+        rotationDeltaMatrix = rotationDeltaMatrix.RotateY(0.01f * currentSpeed);
+        float3 oldFront = f->front.Normalized();
+        f->front = (rotationDeltaMatrix.MulDir(oldFront));
+        float3 oldUp = f->up.Normalized();
+        f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->ReloadViewMatrix();
+    }
 
 
     SDL_Event sdlEvent;
