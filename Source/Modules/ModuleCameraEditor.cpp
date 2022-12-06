@@ -31,20 +31,15 @@ bool ModuleCameraEditor::Init()
 
     f.nearPlaneDistance = 0.1f;
     f.farPlaneDistance = 100.0f;
-    f.verticalFov = pi / 4.0f;
-    int width;
-    int height;
-    SDL_GetWindowSize(App->window->window, &width, &height);
-
-    float aspect = (float)width / (float)height;
-    f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
+  
+    SetFOV();
 
     f.type = FrustumType::PerspectiveFrustum;
 
 
     float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
     view = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
-    proj = f.ProjectionMatrix();
+    proj = GetProjectionMatrix();
 
 
     return ret;
@@ -56,8 +51,14 @@ update_status ModuleCameraEditor::Update()
     return UPDATE_CONTINUE;
 }
 
-Frustum* ModuleCameraEditor::GetFustrum() {
-    return &f;
+void ModuleCameraEditor::SetFOV() {
+    f.verticalFov = pi / 4.0f;
+    int width;
+    int height;
+    SDL_GetWindowSize(App->window->window, &width, &height);
+
+    float aspect = (float)width / (float)height;
+    f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
 }
 
 // Called before quitting
