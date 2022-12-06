@@ -169,5 +169,8 @@
     <None Include="Shaders\vert.glsl">
       <Filter>source\shaders</Filter>
     </None>
+    <None Include="Shaders\base_vert.glsl">
+      <Filter>source\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

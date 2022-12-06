@@ -35,7 +35,7 @@ void __stdcall OurOpenGLErrorFunction(GLenum source, GLenum type, GLuint id, GLe
 	case GL_DEBUG_SEVERITY_LOW: tmp_severity = "low"; break;
 	case GL_DEBUG_SEVERITY_NOTIFICATION: tmp_severity = "notification"; break;
 	};
-	LOG("<Source:%s> <Type:%s> <Severity:%s> <ID:%d> <Message:%s>\n", tmp_source, tmp_type, tmp_severity, id, message);
+	APPLOG("<Source:%s> <Type:%s> <Severity:%s> <ID:%d> <Message:%s>\n", tmp_source, tmp_type, tmp_severity, id, message);
 }
 
 ModuleRender::ModuleRender()
@@ -50,8 +50,10 @@ ModuleRender::~ModuleRender()
 // Called before render is available
 bool ModuleRender::Init()
 {
-	LOG("Creating Renderer context");
-	LOG("Setup OpenGL Attributes");
+	APPLOG("Creating Renderer context");
+	App->NewLog("Creating Renderer context", 0);
+	APPLOG("Setup OpenGL Attributes");
+	App->NewLog("Setup OpenGL Attributes", 0);
 	// GLEW Init
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); // desired version
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
@@ -60,16 +62,18 @@ bool ModuleRender::Init()
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24); // we want to have a depth buffer with 24 bits
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8); // we want to have a stencil buffer with 8 bits
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_DEBUG_FLAG);
-	LOG("Initialize OpenGl Context");
+	APPLOG("Initialize OpenGl Context");
+	App->NewLog("Initialize OpenGl Context", 0);
 	context = SDL_GL_CreateContext(App->window->window);
 	SDL_GL_MakeCurrent(App->window->window, context);
 	SDL_GL_SetSwapInterval(1); // Enable vsync
-	LOG("Initialize GLEW library");
+	APPLOG("Initialize GLEW library");
+	App->NewLog("Initialize GLEW library", 0);
 	glewExperimental = TRUE;
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
 		// Problem: glewInit failed, something is seriously wrong.
-		LOG("glewInit failed: %s", glewGetErrorString(err));
+		APPLOG("glewInit failed: %s", glewGetErrorString(err));
 		exit(1);
 	}
 
@@ -78,16 +82,16 @@ bool ModuleRender::Init()
 	SDL_VERSION(&compiled);
 	SDL_GetVersion(&linked);
 
-	LOG("We compiled against SDL version %d.%d.%d \n", compiled.major, compiled.minor, compiled.patch);
-	LOG("But we are linking against SDL version %d.%d.%d\n", linked.major, linked.minor, linked.patch);
+	APPLOG("We compiled against SDL version %d.%d.%d \n", compiled.major, compiled.minor, compiled.patch);
+	APPLOG("But we are linking against SDL version %d.%d.%d\n", linked.major, linked.minor, linked.patch);
 
 
 
-	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
-	LOG("Vendor: %s", glGetString(GL_VENDOR));
-	LOG("Renderer: %s", glGetString(GL_RENDERER));
-	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	APPLOG("Using Glew %s", glewGetString(GLEW_VERSION));
+	APPLOG("Vendor: %s", glGetString(GL_VENDOR));
+	APPLOG("Renderer: %s", glGetString(GL_RENDERER));
+	APPLOG("OpenGL version supported %s", glGetString(GL_VERSION));
+	APPLOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
 	glEnable(GL_DEBUG_OUTPUT);
@@ -131,7 +135,8 @@ update_status ModuleRender::PostUpdate()
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
-	LOG("Destroying renderer");
+	APPLOG("Destroying renderer");
+	App->NewLog("Destroying renderer", 0);
 
 	//Destroy window
 	SDL_GL_DeleteContext(context);

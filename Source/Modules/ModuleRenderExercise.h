@@ -6,6 +6,7 @@
 #include "../Globals.h"
 #include<list>
 #include <GL/glew.h>
+#include <Math/float4x4.h>
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -22,6 +23,7 @@ public:
 	bool CleanUp();
 
 private:
+	float4x4 LookAt(float3 eye, float3 at, float3 up);
 	GLuint programId;
 	std::list<GLuint> shadersIds;
 	std::list<GLuint> VBOIds;

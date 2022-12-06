@@ -59,9 +59,9 @@ update_status Application::Update()
 	fps.push_back(1.0f / elapsed);
 	if (maxFps > 0) {
 		float milliseconds_limit = 1000.f / maxFps;
-		LOG("ELAPSED: %f", elapsed * 1000);
-		LOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
-		LOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
+		APPLOG("ELAPSED: %f", elapsed * 1000);
+		APPLOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
+		APPLOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
 		if (elapsed < milliseconds_limit) {
 			SDL_Delay(milliseconds_limit - (elapsed * 1000));
 		}

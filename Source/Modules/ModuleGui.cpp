@@ -27,7 +27,7 @@ ModuleGui::~ModuleGui()
 // Called before render is available
 bool ModuleGui::Init()
 {
-	LOG("Initializing ImGui");
+	APPLOG("Initializing ImGui");
 	App->NewLog("Initializing ImGui", 0);
 	const char* glsl_version = "#version 460";
 	// Setup Dear ImGui context
@@ -104,7 +104,7 @@ update_status ModuleGui::PostUpdate()
 bool ModuleGui::CleanUp()
 {
 	bool ret = true;
-	LOG("Destroying ImGui elements");
+	APPLOG("Destroying ImGui elements");
 	App->NewLog("Destroying ImGui elements", 0);
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();

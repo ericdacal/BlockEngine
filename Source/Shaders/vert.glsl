@@ -5,5 +5,5 @@ uniform mat4 view;
 uniform mat4 model;
 void main()
 {
-    gl_Position = proj*view*model*vec4(my_vertex_position, 1.0);
+	gl_Position = proj*view*model*vec4(my_vertex_position, 1.0);
 }
