@@ -67,6 +67,9 @@
     <ClCompile Include="Modules\ModuleDebugDraw.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\ModuleCameraEditor.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -155,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="debugdraw.h">
       <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\ModuleCameraEditor.h">
+      <Filter>source\modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

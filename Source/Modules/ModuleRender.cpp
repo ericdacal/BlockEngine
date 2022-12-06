@@ -2,6 +2,7 @@
 #include "../Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
+#include "ModuleCameraEditor.h"
 #include "SDL.h"
 #include "GL/glew.h"
 
@@ -146,5 +147,6 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::WindowResized(unsigned width, unsigned height)
 {
+	App->camEditor->SetFOV(width, height);
 }
 

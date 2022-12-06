@@ -6,6 +6,7 @@
 #include "../Globals.h"
 
 typedef unsigned __int8 Uint8;
+typedef unsigned __int64 Uint64;
 
 class ModuleInput : public Module
 {
@@ -20,5 +21,11 @@ public:
 
 private:
 	const Uint8 *keyboard = NULL;
+	float cameraSpeed = 0.05f;
+	float deltaTime = 0.0f;	// Time between current frame and last frame
+	Uint64 lastFrame = 0; // Time of last frame
+	bool leftMouseButton;
+	bool rightMouseButton;
+	bool leftAltButton;
 };
 #endif

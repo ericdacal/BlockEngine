@@ -3,6 +3,7 @@
 #include "ModuleRenderExercise.h"
 #include "ModuleWindow.h"
 #include "ModuleProgram.h"
+#include "ModuleCameraEditor.h"
 #include <SDL.h>
 #include <Geometry/Frustum.h>
 #include <Math/MathConstants.h>
@@ -130,30 +131,6 @@ unsigned ModuleRenderExercise::CompileShader(unsigned type, const char* source)
 	}
 	return shader_id;
 }
-
-float4x4 ModuleRenderExercise::GetViewMatrix() {
-	return viewMatrix;
-}
-
-float4x4 ModuleRenderExercise::GetProjectionMatrix() {
-	return projectionMatrix;
-}
-
-float4x4 ModuleRenderExercise::LookAt(float3 eye, float3 at, float3 up)
-{
-	float3 zaxis = (at - eye).Normalized();
-	float3 xaxis = (zaxis.Cross(up)).Normalized();
-	float3 yaxis = xaxis.Cross(zaxis);
-	zaxis = zaxis.Neg();
-
-	float4x4 viewMatrix = float4x4(xaxis.x, xaxis.y, xaxis.z, -xaxis.Dot(eye),
-		yaxis.x, yaxis.y, yaxis.z, -yaxis.Dot(eye),
-		zaxis.x, zaxis.y, zaxis.z, -zaxis.Dot(eye),
-		0, 0, 0, 1);
-	return viewMatrix;
-}
-
-
 // This function must be called each frame for drawing the triangle
 void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 {
@@ -164,34 +141,13 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glUseProgram(program);
 
-	Frustum frustum;
 	
-
-	frustum.pos = float3::zero;
-	frustum.front = -float3::unitZ;
-	frustum.up = float3::unitY;
-
-	frustum.nearPlaneDistance = 0.1f;
-	frustum.farPlaneDistance = 100.0f;
-	frustum.verticalFov = pi / 4.0f;
-	int width;
-	int height;
-	SDL_GetWindowSize(App->window->window, &width, &height);
-
-	float aspect = (float)width / (float)height;
-	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspect);
-
-	frustum.type = FrustumType::PerspectiveFrustum;
-
-
 	float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
-	viewMatrix = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
-	projectionMatrix = frustum.ProjectionMatrix();
-	
+
 
 	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &viewMatrix[0][0]);
-	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &projectionMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &App->camEditor->GetViewMatrix()[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &App->camEditor->GetProjectionMatrix()[0][0]);
 	// 1 triangle to draw = 3 vertices
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

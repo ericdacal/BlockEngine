@@ -8,7 +8,7 @@
 #include "../Gui/GuiHardware.h"
 #include "../Gui/GuiAbout.h"
 #include <imgui_impl_sdl.h>
-#include <imgui_impl_opengl3.h>
+
 
 
 
@@ -56,17 +56,6 @@ bool ModuleGui::Init()
 
 update_status ModuleGui::PreUpdate() 
 {
-
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		ImGui_ImplSDL2_ProcessEvent(&event);
-		if (event.type == SDL_QUIT)
-			return UPDATE_STOP;
-		if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE && event.window.windowID == SDL_GetWindowID(App->window->window))
-			return UPDATE_STOP;
-	}
-
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();

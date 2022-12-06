@@ -16,6 +16,7 @@ class ModuleRenderExercise;
 class ModuleGui;
 class ModuleProgram;
 class ModuleDebugDraw;
+class ModuleCameraEditor;
 
 
 class Application
@@ -41,16 +42,22 @@ public:
 	ModuleRenderExercise* exercise = nullptr;
 	ModuleDebugDraw* debugDraw = nullptr;
 	ModuleGui* gui = nullptr;
+	ModuleCameraEditor* camEditor = nullptr;
 	std::vector<float> fps;
 	std::vector<float> milliseconds;
 	
 
 private:
+	// Vector that allocates modules
 	std::list<Module*> modules;
+	
+	// Vector that allocate logs 
 	std::vector<AppLog> logs;
 
-	//Elapsed time between frames
+	// Elapsed time between frames
 	float elapsed;
+
+	// Max framerate 
 	int maxFps;
 };
 

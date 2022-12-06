@@ -159,6 +159,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Modules\ModuleCameraEditor.cpp" />
     <ClCompile Include="Modules\ModuleDebugDraw.cpp" />
     <ClCompile Include="Modules\ModuleGui.cpp" />
     <ClCompile Include="Modules\ModuleInput.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Modules\Module.h" />
+    <ClInclude Include="Modules\ModuleCameraEditor.h" />
     <ClInclude Include="Modules\ModuleDebugDraw.h" />
     <ClInclude Include="Modules\ModuleGui.h" />
     <ClInclude Include="Modules\ModuleInput.h" />
