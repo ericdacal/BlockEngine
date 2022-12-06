@@ -1,5 +1,6 @@
 #include "../Globals.h"
 #include "../Application.h"
+#include "ModuleDrawer.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleCameraEditor.h"
@@ -175,7 +176,9 @@ update_status ModuleInput::Update()
                     App->camEditor->ReloadViewMatrix();
                 }
                 break;
-            ;
+            case SDL_DROPFILE:
+                App->drawer->changeModel(sdlEvent.drop.file);
+                break;
         }
     }
 
