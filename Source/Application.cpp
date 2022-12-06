@@ -9,6 +9,7 @@
 #include "Modules/ModuleDebugDraw.h"
 #include "Modules/ModuleCameraEditor.h"
 #include "Modules/ModuleTexture.h"
+#include "Modules/ModuleDrawer.h"
 
 using namespace std;
 
@@ -19,10 +20,11 @@ Application::Application()
 	modules.push_back(program = new ModuleProgram());
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(camEditor = new ModuleCameraEditor());
-	modules.push_back(exercise = new ModuleRenderExercise());
+	//modules.push_back(exercise = new ModuleRenderExercise());
 	modules.push_back(debugDraw = new ModuleDebugDraw());
 	modules.push_back(texture= new ModuleTexture());
 	modules.push_back(gui = new ModuleGui());
+	modules.push_back(drawer = new ModuleDrawer());
 }
 
 Application::~Application()
