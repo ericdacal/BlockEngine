@@ -4,6 +4,9 @@
 #include "ModuleWindow.h"
 #include "ModuleProgram.h"
 #include <SDL.h>
+#include <Geometry/Frustum.h>
+#include <Math/MathConstants.h>
+#include <Math/float3.h>
 
 ModuleRenderExercise::ModuleRenderExercise()
 {
@@ -19,20 +22,24 @@ bool ModuleRenderExercise::Init()
 
 	bool ret = true;
 
-	LOG("Create VBOs");
+	APPLOG("Create VBOs");
+	App->NewLog("Create VBOs", 0);
 	VBOIds.push_back(CreateTriangleVBO());
 
-	LOG("Loading Shader files");
+	APPLOG("Loading Shader files");
+	App->NewLog("Loading Shader files", 0);
 	GLchar* vshader = LoadShaderSource("..\\Source\\Shaders\\vert.glsl");
 	GLchar* fshader = LoadShaderSource("..\\Source\\Shaders\\frag.glsl");
 
-	LOG("Compiling Shader files");
+	APPLOG("Compiling Shader files");
+	App->NewLog("Compiling Shader files", 0);
 	GLuint vCompile = CompileShader(GL_VERTEX_SHADER, vshader);
 	GLuint fCompile = CompileShader(GL_FRAGMENT_SHADER, fshader);
 	shadersIds.push_back(vCompile);
 	shadersIds.push_back(fCompile);
 
-	LOG("Creating Program");
+	APPLOG("Creating Program");
+	App->NewLog("Creating Program", 0);
 	programId = App->program->CreateProgram(vCompile, fCompile);
 
 	return ret;
@@ -55,13 +62,15 @@ update_status ModuleRenderExercise::Update()
 }
 
 bool ModuleRenderExercise::CleanUp() {
-	LOG("Destroying VBOs");
+	APPLOG("Destroying VBOs");
+	App->NewLog("Destroying VBOs", 0);
 	for (std::list<GLuint>::iterator it = VBOIds.begin(); it != VBOIds.end(); ++it)
 	{
 		DestroyVBO((*it));
 	}
 	// Destroy shaders
-	LOG("Destroying shaders");
+	APPLOG("Destroying shaders");
+	App->NewLog("Destroying shaders", 0);
 	for (std::list<GLuint>::iterator it = shadersIds.begin(); it != shadersIds.end(); ++it)
 	{
 		glDeleteShader(*it);
@@ -122,6 +131,28 @@ unsigned ModuleRenderExercise::CompileShader(unsigned type, const char* source)
 	return shader_id;
 }
 
+float4x4 ModuleRenderExercise::GetViewMatrix() {
+	return viewMatrix;
+}
+
+float4x4 ModuleRenderExercise::GetProjectionMatrix() {
+	return projectionMatrix;
+}
+
+float4x4 ModuleRenderExercise::LookAt(float3 eye, float3 at, float3 up)
+{
+	float3 zaxis = (at - eye).Normalized();
+	float3 xaxis = (zaxis.Cross(up)).Normalized();
+	float3 yaxis = xaxis.Cross(zaxis);
+	zaxis = zaxis.Neg();
+
+	float4x4 viewMatrix = float4x4(xaxis.x, xaxis.y, xaxis.z, -xaxis.Dot(eye),
+		yaxis.x, yaxis.y, yaxis.z, -yaxis.Dot(eye),
+		zaxis.x, zaxis.y, zaxis.z, -zaxis.Dot(eye),
+		0, 0, 0, 1);
+	return viewMatrix;
+}
+
 
 // This function must be called each frame for drawing the triangle
 void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
@@ -132,6 +163,35 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 	// stride = 0 is equivalent to stride = sizeof(float)*3
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glUseProgram(program);
+
+	Frustum frustum;
+	
+
+	frustum.pos = float3::zero;
+	frustum.front = -float3::unitZ;
+	frustum.up = float3::unitY;
+
+	frustum.nearPlaneDistance = 0.1f;
+	frustum.farPlaneDistance = 100.0f;
+	frustum.verticalFov = pi / 4.0f;
+	int width;
+	int height;
+	SDL_GetWindowSize(App->window->window, &width, &height);
+
+	float aspect = (float)width / (float)height;
+	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov * 0.5f) * aspect);
+
+	frustum.type = FrustumType::PerspectiveFrustum;
+
+
+	float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
+	viewMatrix = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
+	projectionMatrix = frustum.ProjectionMatrix();
+	
+
+	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &viewMatrix[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &projectionMatrix[0][0]);
 	// 1 triangle to draw = 3 vertices
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }

@@ -196,7 +196,7 @@ bool GuiHardware::Draw()
 	
 	}
 	else {
-		LOG("Unknown GPU vendor");
+		APPLOG("Unknown GPU vendor");
 		App->NewLog("Unknown GPU vendor", 1);
 	}
 		

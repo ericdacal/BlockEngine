@@ -6,6 +6,7 @@
 #include "Modules/ModuleProgram.h"
 #include "Modules/ModuleRenderExercise.h"
 #include "Modules/ModuleGui.h"
+#include "Modules/ModuleDebugDraw.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ Application::Application()
 	modules.push_back(program = new ModuleProgram());
 	modules.push_back(exercise = new ModuleRenderExercise());
 	modules.push_back(gui = new ModuleGui());
+	modules.push_back(debugDraw = new ModuleDebugDraw());
 	
 }
 
@@ -59,9 +61,9 @@ update_status Application::Update()
 	fps.push_back(1.0f / elapsed);
 	if (maxFps > 0) {
 		float milliseconds_limit = 1000.f / maxFps;
-		LOG("ELAPSED: %f", elapsed * 1000);
-		LOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
-		LOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
+		APPLOG("ELAPSED: %f", elapsed * 1000);
+		APPLOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
+		APPLOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
 		if (elapsed < milliseconds_limit) {
 			SDL_Delay(milliseconds_limit - (elapsed * 1000));
 		}

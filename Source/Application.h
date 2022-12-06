@@ -15,6 +15,7 @@ class ModuleInput;
 class ModuleRenderExercise;
 class ModuleGui;
 class ModuleProgram;
+class ModuleDebugDraw;
 
 
 class Application
@@ -38,6 +39,7 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleProgram* program = nullptr;
 	ModuleRenderExercise* exercise = nullptr;
+	ModuleDebugDraw* debugDraw = nullptr;
 	ModuleGui* gui = nullptr;
 	std::vector<float> fps;
 	std::vector<float> milliseconds;
