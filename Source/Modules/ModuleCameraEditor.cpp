@@ -25,9 +25,10 @@ bool ModuleCameraEditor::Init()
     APPLOG("Creating camera matrix, view and projection");
     bool ret = true;
 
-    f.pos = float3(0.0f, 4.0f, 8.0f);
+    f.pos = float3(0.0f, 1.0f, 8.0f);
     f.front = -float3::unitZ;
     f.up = float3::unitY;
+    mode = 0;
 
     f.nearPlaneDistance = 0.1f;
     f.farPlaneDistance = 100.0f;
@@ -37,8 +38,9 @@ bool ModuleCameraEditor::Init()
     SDL_GetWindowSize(App->window->window, &width, &height);
   
     SetFOV(width, height);
+    ReloadViewMatrix();
 
-    view = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
+    view = GetViewMatrix(); 
     proj = GetProjectionMatrix();
 
     return ret;
@@ -63,6 +65,10 @@ void ModuleCameraEditor::SetAspectRatio(int width, int height) {
     SDL_GetWindowSize(App->window->window, &width, &height);
 
     aspect = (float)width / (float)height;
+}
+
+Frustum* ModuleCameraEditor::GetFustrum() {
+    return &f;
 }
 
 // Called before quitting
@@ -95,4 +101,9 @@ float4x4 ModuleCameraEditor::LookAt(float3 eye, float3 at, float3 up)
 
 float4x4 ModuleCameraEditor::GetViewMatrix() {
     return view;
+}
+
+void ModuleCameraEditor::ReloadViewMatrix() {
+    if (mode == 0) view = f.ViewMatrix();
+    else view = LookAt(f.pos, float3(0.f, 0.f, 0.f), float3::unitY);
 }

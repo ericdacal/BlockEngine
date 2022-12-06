@@ -2,6 +2,7 @@
 #include "../Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleCameraEditor.h"
 #include "../SDL/include/SDL.h"
 
 ModuleInput::ModuleInput()
@@ -31,7 +32,29 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::Update()
 {
+    // Computation of deltaTime
+    Uint64 currentFrame = SDL_GetPerformanceCounter();
+
+    deltaTime = (double)((currentFrame - lastFrame) * 1000 / (double)SDL_GetPerformanceFrequency());
+    lastFrame = currentFrame;
+
+    float currentSpeed = (cameraSpeed * deltaTime);
+    Frustum* f = App->camEditor->GetFustrum();
+
+    float3 up = f->up;
+    float3 pos = f->pos;
+    
     keyboard = SDL_GetKeyboardState(NULL);
+
+    if (keyboard[SDL_SCANCODE_Q]) {
+        f->pos = (pos + (up * currentSpeed));
+        App->camEditor->ReloadViewMatrix();
+    }
+
+    if (keyboard[SDL_SCANCODE_E]) {
+        f->pos = (pos - (up * currentSpeed));
+        App->camEditor->ReloadViewMatrix();
+    }
 
 
     SDL_Event sdlEvent;

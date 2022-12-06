@@ -25,6 +25,9 @@ public:
 	void SetAspectRatio(int width, int height);
 	float4x4 GetProjectionMatrix();
 	float4x4 GetViewMatrix();
+	void changeCameraMode(int mode);
+	Frustum* GetFustrum();
+	void ReloadViewMatrix();
 
 private:
 	// LookAt glm approach
@@ -32,10 +35,14 @@ private:
 	
 	// Aspect ratio of the screen
 	float aspect;
-	
+
+	// Camera mode, 0 for moving camera, 1 for orbital camera
+	int mode;
+
 	// View and projection matrix
 	float4x4 view, proj;
 
 	Frustum f;
+
 };
 #endif
