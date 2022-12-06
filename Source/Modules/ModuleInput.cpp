@@ -32,6 +32,12 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::Update()
 {
+    if (!leftMouseButton or !leftAltButton) {
+        SDL_SetRelativeMouseMode(SDL_FALSE);
+    }
+    leftAltButton = false;
+    leftMouseButton = false;
+    SDL_PumpEvents();
     // Computation of deltaTime
     Uint64 currentFrame = SDL_GetPerformanceCounter();
 
@@ -113,6 +119,18 @@ update_status ModuleInput::Update()
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
         App->camEditor->ReloadViewMatrix();
     }
+    if (keyboard[SDL_SCANCODE_LALT]) {
+        leftAltButton = true;
+    }
+
+    Uint32 buttons = SDL_GetMouseState(NULL, NULL);
+
+    if (buttons&SDL_BUTTON(1)) {
+        leftMouseButton = true;
+    }
+    if (buttons&SDL_BUTTON(3)) {
+        APPLOG("MOUSE RIGHT CLICK");
+    }
 
 
     SDL_Event sdlEvent;
@@ -122,9 +140,15 @@ update_status ModuleInput::Update()
         {
             case SDL_QUIT:
                 return UPDATE_STOP;
+                break;
             case SDL_WINDOWEVENT:
                 if (sdlEvent.window.event == SDL_WINDOWEVENT_RESIZED || sdlEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
                     App->renderer->WindowResized(sdlEvent.window.data1, sdlEvent.window.data2);
+                break;
+            case SDL_MOUSEMOTION:
+                if (leftMouseButton && leftAltButton) {
+                    SDL_SetRelativeMouseMode(SDL_TRUE);
+                }
                 break;
         }
     }
