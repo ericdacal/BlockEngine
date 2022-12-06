@@ -17,6 +17,7 @@ class ModuleGui;
 class ModuleProgram;
 class ModuleDebugDraw;
 class ModuleCameraEditor;
+class ModuleTexture;
 
 
 class Application
@@ -43,6 +44,7 @@ public:
 	ModuleDebugDraw* debugDraw = nullptr;
 	ModuleGui* gui = nullptr;
 	ModuleCameraEditor* camEditor = nullptr;
+	ModuleTexture* texture = nullptr;
 	std::vector<float> fps;
 	std::vector<float> milliseconds;
 	

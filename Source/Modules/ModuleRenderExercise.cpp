@@ -4,6 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleProgram.h"
 #include "ModuleCameraEditor.h"
+#include "ModuleTexture.h"
 #include <SDL.h>
 #include <Geometry/Frustum.h>
 #include <Math/MathConstants.h>
@@ -42,6 +43,11 @@ bool ModuleRenderExercise::Init()
 	APPLOG("Creating Program");
 	App->NewLog("Creating Program", 0);
 	programId = App->program->CreateProgram(vCompile, fCompile);
+
+	const DirectX::ScratchImage* image = App->texture->Load("..\\Source\\resources\\baboon.ppm");
+	LoadTextureGPU(image);
+
+
 
 	return ret;
 }
@@ -82,11 +88,25 @@ bool ModuleRenderExercise::CleanUp() {
 
 GLuint ModuleRenderExercise::CreateTriangleVBO()
 {
-	float vtx_data[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+	float buffer_data[] = {
+		-1.0f, -1.0f, 0.0f, //  v0 pos
+		1.0f, -1.0f, 0.0f, //  v1 pos
+		1.0f, 1.0f, 0.0f, //  v2 pos
+		1.0f, 1.0f, 0.0f, //  v3 pos
+		-1.0f, 1.0f, 0.0f, //  v4 pos
+		-1.0f, -1.0f, 0.0f, //  v5 pos
+		0.0f, 0.0f, //  v1 texcoord	
+		1.0f, 0.0f, //  v1 texcoord	
+		1.0f, 1.0f, //  v2 texcoord
+		1.0f, 1.0f, //  v3 texcoord
+		0.0f, 1.0f, //  v4 texcoord
+		0.0f, 0.0f //  v5 texcoord
+	};
+
 	unsigned vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(buffer_data), buffer_data, GL_STATIC_DRAW);
 	return vbo;
 }
 
@@ -107,6 +127,56 @@ char* ModuleRenderExercise::LoadShaderSource(const char* shader_file_name)
 		fclose(file);
 	}
 	return data;
+}
+
+void ModuleRenderExercise::LoadTextureGPU(const DirectX::ScratchImage* im) {
+	
+	glGenTextures(1, &textureId);
+
+	glBindTexture(GL_TEXTURE_2D, textureId);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	GLint internalFormat;
+	GLint format;
+	GLint type;
+	APPLOG("%d", im->GetMetadata().format);
+	switch (im->GetMetadata().format)
+	{
+	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+		internalFormat = GL_RGBA8;
+		format = GL_RGBA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_R8G8B8A8_UNORM:
+		internalFormat = GL_RGBA8;
+		format = GL_RGBA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+		internalFormat = GL_RGBA8;
+		format = GL_BGRA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_B8G8R8A8_UNORM:
+		internalFormat = GL_RGBA8;
+		format = GL_BGRA;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	case DXGI_FORMAT_B5G6R5_UNORM:
+		internalFormat = GL_RGB8;
+		format = GL_BGR;
+		type = GL_UNSIGNED_BYTE;
+		break;
+	default:
+		assert(false && "Unsupported format");
+	}
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, im->GetMetadata().width, im->GetMetadata().height, 0, format, type, im->GetPixels());
+	glGenerateMipmap(GL_TEXTURE_2D);
+	glActiveTexture(GL_ACTIVE_TEXTURE);
 }
 
 
@@ -139,17 +209,24 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 	// size = 3 float per vertex
 	// stride = 0 is equivalent to stride = sizeof(float)*3
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 6 * 3));
 	glUseProgram(program);
 
 	
-	float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
+	//float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
 
-
+	float4x4 model = float4x4::identity;
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	
+	glUniform1i(glGetUniformLocation(program, "diffuse"), 0);
 	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &App->camEditor->GetViewMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &App->camEditor->GetProjectionMatrix()[0][0]);
-	// 1 triangle to draw = 3 vertices
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	// 1 quad to draw = 6 vertices
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 
