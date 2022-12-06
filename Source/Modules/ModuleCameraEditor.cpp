@@ -113,7 +113,6 @@ void  ModuleCameraEditor::rotatePolar(const float radians) {
 void  ModuleCameraEditor::rotateAzimuth(const float radians) {
     azimuthAngle += radians;
     float3 pos = getPositionCartesian();
-    //f.pos = pos;
 
     float3x3 rotationMatrix = float3x3::identity;
     rotationMatrix = rotationMatrix.LookAt(-float3::unitX, calculateEye(), float3::unitY, float3::unitY);

@@ -36,6 +36,7 @@ update_status ModuleInput::Update()
    
     leftAltButton = false;
     leftMouseButton = false;
+    rightMouseButton = false;
     // Computation of deltaTime
     Uint64 currentFrame = SDL_GetPerformanceCounter();
 
@@ -53,90 +54,102 @@ update_status ModuleInput::Update()
     
     keyboard = SDL_GetKeyboardState(NULL);
 
-    if (keyboard[SDL_SCANCODE_Q]) {
+    Uint32 buttons = SDL_GetMouseState(NULL, NULL);
+
+    if (buttons & SDL_BUTTON(1)) {
+        leftMouseButton = true;
+    }
+    if (buttons & SDL_BUTTON(3)) {
+        rightMouseButton = true;
+    }
+
+
+    if (keyboard[SDL_SCANCODE_Q] && rightMouseButton) {
         f->pos = (pos + (up * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
 
-    if (keyboard[SDL_SCANCODE_E]) {
+    if (keyboard[SDL_SCANCODE_E] && rightMouseButton) {
         f->pos = (pos - (up * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
 
-    if (keyboard[SDL_SCANCODE_W]) {
+    if (keyboard[SDL_SCANCODE_W] && rightMouseButton) {
         f->pos = (pos + (front * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
 
-    if (keyboard[SDL_SCANCODE_S]) {
+    if (keyboard[SDL_SCANCODE_S] && rightMouseButton) {
         f->pos = (pos - (front * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
 
-    if (keyboard[SDL_SCANCODE_D]) {
+    if (keyboard[SDL_SCANCODE_D] && rightMouseButton) {
         f->pos = (pos + (worldRight * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
 
-    if (keyboard[SDL_SCANCODE_A]) {
+    if (keyboard[SDL_SCANCODE_A] && rightMouseButton) {
         f->pos = (pos - (worldRight * currentSpeed));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
-    if (keyboard[SDL_SCANCODE_UP]) {
+    if (keyboard[SDL_SCANCODE_UP] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateX(0.01f * currentSpeed);
         float3 oldFront = f->front.Normalized();
         f->front = (rotationDeltaMatrix.MulDir(oldFront));
         float3 oldUp = f->up.Normalized();
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
-    if (keyboard[SDL_SCANCODE_DOWN]) {
+    if (keyboard[SDL_SCANCODE_DOWN] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateX(-0.01f * currentSpeed);
         float3 oldFront = f->front.Normalized();
         f->front = (rotationDeltaMatrix.MulDir(oldFront));
         float3 oldUp = f->up.Normalized();
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
-    if (keyboard[SDL_SCANCODE_RIGHT]) {
+    if (keyboard[SDL_SCANCODE_RIGHT] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-0.01f * currentSpeed);
         float3 oldFront = f->front.Normalized();
         f->front = (rotationDeltaMatrix.MulDir(oldFront));
         float3 oldUp = f->up.Normalized();
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
-    if (keyboard[SDL_SCANCODE_LEFT]) {
+    if (keyboard[SDL_SCANCODE_LEFT] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateY(0.01f * currentSpeed);
         float3 oldFront = f->front.Normalized();
         f->front = (rotationDeltaMatrix.MulDir(oldFront));
         float3 oldUp = f->up.Normalized();
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
+        App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
     if (keyboard[SDL_SCANCODE_LALT]) {
         leftAltButton = true;
     }
 
-    Uint32 buttons = SDL_GetMouseState(NULL, NULL);
-
-    if (buttons&SDL_BUTTON(1)) {
-        leftMouseButton = true;
-    }
-    if (buttons&SDL_BUTTON(3)) {
-        APPLOG("MOUSE RIGHT CLICK");
-    }
-
+    
     while (SDL_PollEvent(&sdlEvent) != 0)
     {
-        /*if (!leftMouseButton or !leftAltButton) {
+        if (!leftMouseButton or !leftAltButton) {
             SDL_SetRelativeMouseMode(SDL_FALSE);
             App->camEditor->changeCameraMode(0);
-        }*/
+        }
         ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
         switch (sdlEvent.type)
         {
@@ -148,9 +161,10 @@ update_status ModuleInput::Update()
                     App->renderer->WindowResized(sdlEvent.window.data1, sdlEvent.window.data2);
                 break;
             case SDL_MOUSEWHEEL:
-                APPLOG("MOUSE WHEEL: %d", sdlEvent.wheel.y);
-                App->camEditor->zoom(-sdlEvent.wheel.y);
-                App->camEditor->ReloadViewMatrix();
+                if (leftMouseButton && leftAltButton) {
+                    App->camEditor->zoom(-sdlEvent.wheel.y);
+                    App->camEditor->ReloadViewMatrix();
+                }
                 break;
             case SDL_MOUSEMOTION:
                 if (leftMouseButton && leftAltButton) {

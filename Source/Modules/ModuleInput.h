@@ -25,6 +25,7 @@ private:
 	float deltaTime = 0.0f;	// Time between current frame and last frame
 	Uint64 lastFrame = 0; // Time of last frame
 	bool leftMouseButton;
+	bool rightMouseButton;
 	bool leftAltButton;
 };
 #endif
