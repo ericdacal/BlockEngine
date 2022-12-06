@@ -100,14 +100,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\SDL\include;.\glew-2.1.0\include;.\imgui;.\MathGeoLib-1.5\MathGeoLib-1.5\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\SDL\include;.\glew-2.1.0\include;.\imgui;.\MathGeoLib-1.5\MathGeoLib-1.5\src;.\DirectXTex\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\glew-2.1.0\lib\Release\x64;.\MathGeoLib-1.5\MathGeoLib-1.5\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;MathGeoLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\glew-2.1.0\lib\Release\x64;.\MathGeoLib-1.5\MathGeoLib-1.5\Debug;.\DirectXTex\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;MathGeoLib.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
