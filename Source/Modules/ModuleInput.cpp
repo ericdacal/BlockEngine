@@ -43,6 +43,7 @@ update_status ModuleInput::Update()
 
     float3 up = f->up;
     float3 pos = f->pos;
+    float3 front = f->front;
     
     keyboard = SDL_GetKeyboardState(NULL);
 
@@ -53,6 +54,16 @@ update_status ModuleInput::Update()
 
     if (keyboard[SDL_SCANCODE_E]) {
         f->pos = (pos - (up * currentSpeed));
+        App->camEditor->ReloadViewMatrix();
+    }
+
+    if (keyboard[SDL_SCANCODE_W]) {
+        f->pos = (pos + (front * currentSpeed));
+        App->camEditor->ReloadViewMatrix();
+    }
+
+    if (keyboard[SDL_SCANCODE_S]) {
+        f->pos = (pos - (front * currentSpeed));
         App->camEditor->ReloadViewMatrix();
     }
 
