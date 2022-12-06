@@ -31,8 +31,12 @@ bool ModuleCameraEditor::Init()
 
     f.nearPlaneDistance = 0.1f;
     f.farPlaneDistance = 100.0f;
+
+    int width;
+    int height;
+    SDL_GetWindowSize(App->window->window, &width, &height);
   
-    SetFOV();
+    SetFOV(width, height);
 
     view = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
     proj = GetProjectionMatrix();
@@ -46,21 +50,16 @@ update_status ModuleCameraEditor::Update()
     return UPDATE_CONTINUE;
 }
 
-void ModuleCameraEditor::SetFOV() {
+void ModuleCameraEditor::SetFOV(int width, int height) {
     f.verticalFov = pi / 4.0f;
-    int width;
-    int height;
-    SDL_GetWindowSize(App->window->window, &width, &height);
-
-    SetAspectRatio();
+   
+    SetAspectRatio(width, height);
     f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
 
     f.type = FrustumType::PerspectiveFrustum;
 }
 
-void ModuleCameraEditor::SetAspectRatio() {
-    int width;
-    int height;
+void ModuleCameraEditor::SetAspectRatio(int width, int height) {
     SDL_GetWindowSize(App->window->window, &width, &height);
 
     aspect = (float)width / (float)height;

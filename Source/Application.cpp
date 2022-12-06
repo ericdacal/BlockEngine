@@ -21,7 +21,6 @@ Application::Application()
 	modules.push_back(gui = new ModuleGui());
 	modules.push_back(exercise = new ModuleRenderExercise());
 	modules.push_back(debugDraw = new ModuleDebugDraw());
-	
 }
 
 Application::~Application()

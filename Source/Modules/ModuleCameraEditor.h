@@ -21,8 +21,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void SetFOV();
-	void SetAspectRatio();
+	void SetFOV(int width, int height);
+	void SetAspectRatio(int width, int height);
 	float4x4 GetProjectionMatrix();
 	float4x4 GetViewMatrix();
 
