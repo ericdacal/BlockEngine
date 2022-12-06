@@ -34,5 +34,6 @@ private:
 	char* LoadShaderSource(const char* shader_file_name);
 	unsigned CompileShader(unsigned type, const char* source);
 	float4x4 viewMatrix, projectionMatrix;
+	GLuint textureId;
 };
 #endif
