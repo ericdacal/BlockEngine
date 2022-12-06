@@ -91,11 +91,18 @@ GLuint ModuleRenderExercise::CreateTriangleVBO()
 	float buffer_data[] = {
 		-1.0f, -1.0f, 0.0f, //  v0 pos
 		1.0f, -1.0f, 0.0f, //  v1 pos
-		0.0f, 1.0f, 0.0f, //  v2 pos
-		0.0f, 0.0f, //  v0 texcoord
+		1.0f, 1.0f, 0.0f, //  v2 pos
+		1.0f, 1.0f, 0.0f, //  v3 pos
+		-1.0f, 1.0f, 0.0f, //  v4 pos
+		-1.0f, -1.0f, 0.0f, //  v5 pos
+		0.0f, 0.0f, //  v1 texcoord	
 		1.0f, 0.0f, //  v1 texcoord	
-		0.5f, 1.0f //  v2 texcoord
+		1.0f, 1.0f, //  v2 texcoord
+		1.0f, 1.0f, //  v3 texcoord
+		0.0f, 1.0f, //  v4 texcoord
+		0.0f, 0.0f //  v5 texcoord
 	};
+
 	unsigned vbo;
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
@@ -204,13 +211,13 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * 3));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 6 * 3));
 	glUseProgram(program);
 
 	
-	float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
+	//float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
 
-
+	float4x4 model = float4x4::identity;
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureId);
 	
@@ -218,8 +225,8 @@ void ModuleRenderExercise::RenderVBO(unsigned vbo, unsigned program)
 	glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_TRUE, &model[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(program, "view"), 1, GL_TRUE, &App->camEditor->GetViewMatrix()[0][0]);
 	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_TRUE, &App->camEditor->GetProjectionMatrix()[0][0]);
-	// 1 triangle to draw = 3 vertices
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	// 1 quad to draw = 6 vertices
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 
