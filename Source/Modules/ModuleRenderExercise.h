@@ -21,11 +21,8 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-	float4x4 GetViewMatrix();
-	float4x4 GetProjectionMatrix();
 
 private:
-	float4x4 LookAt(float3 eye, float3 at, float3 up);
 	GLuint programId;
 	std::list<GLuint> shadersIds;
 	std::list<GLuint> VBOIds;

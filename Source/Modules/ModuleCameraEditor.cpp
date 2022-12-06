@@ -25,7 +25,7 @@ bool ModuleCameraEditor::Init()
     APPLOG("Creating camera matrix, view and projection");
     bool ret = true;
 
-    f.pos = float3::zero;
+    f.pos = float3(0.0f, 4.0f, 8.0f);
     f.front = -float3::unitZ;
     f.up = float3::unitY;
 
@@ -34,13 +34,8 @@ bool ModuleCameraEditor::Init()
   
     SetFOV();
 
-    f.type = FrustumType::PerspectiveFrustum;
-
-
-    float4x4 model = float4x4::FromTRS(float3(2.0f, 0.0f, 0.0f), float4x4::RotateZ(pi / 4.0f), float3(2.0f, 1.0f, 0.0f));
     view = LookAt(float3(0.0f, 4.0f, 8.0f), float3(0.0f, 0.0f, 0.0f), float3::unitY);
     proj = GetProjectionMatrix();
-
 
     return ret;
 }
@@ -53,8 +48,14 @@ update_status ModuleCameraEditor::Update()
 
 void ModuleCameraEditor::SetFOV() {
     f.verticalFov = pi / 4.0f;
+    int width;
+    int height;
+    SDL_GetWindowSize(App->window->window, &width, &height);
+
     SetAspectRatio();
     f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
+
+    f.type = FrustumType::PerspectiveFrustum;
 }
 
 void ModuleCameraEditor::SetAspectRatio() {
@@ -62,7 +63,7 @@ void ModuleCameraEditor::SetAspectRatio() {
     int height;
     SDL_GetWindowSize(App->window->window, &width, &height);
 
-    float aspect = (float)width / (float)height;
+    aspect = (float)width / (float)height;
 }
 
 // Called before quitting
@@ -94,6 +95,5 @@ float4x4 ModuleCameraEditor::LookAt(float3 eye, float3 at, float3 up)
 
 
 float4x4 ModuleCameraEditor::GetViewMatrix() {
-    float4x4 view = LookAt(f.pos, float3(0.f, 0.f, 0.f), float3::unitY);
     return view;
 }
