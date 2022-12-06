@@ -73,6 +73,12 @@
     <ClCompile Include="Modules\ModuleTexture.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -166,6 +172,12 @@
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleTexture.h">
+      <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
       <Filter>source\modules</Filter>
     </ClInclude>
   </ItemGroup>
