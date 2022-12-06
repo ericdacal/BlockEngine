@@ -79,6 +79,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
+    <ClCompile Include="Modules\ModuleDrawer.cpp">
+      <Filter>source\modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -178,6 +181,9 @@
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
+      <Filter>source\modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Modules\ModuleDrawer.h">
       <Filter>source\modules</Filter>
     </ClInclude>
   </ItemGroup>

@@ -163,6 +163,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Modules\ModuleCameraEditor.cpp" />
     <ClCompile Include="Modules\ModuleDebugDraw.cpp" />
+    <ClCompile Include="Modules\ModuleDrawer.cpp" />
     <ClCompile Include="Modules\ModuleGui.cpp" />
     <ClCompile Include="Modules\ModuleInput.cpp" />
     <ClCompile Include="Modules\ModuleProgram.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Modules\Module.h" />
     <ClInclude Include="Modules\ModuleCameraEditor.h" />
     <ClInclude Include="Modules\ModuleDebugDraw.h" />
+    <ClInclude Include="Modules\ModuleDrawer.h" />
     <ClInclude Include="Modules\ModuleGui.h" />
     <ClInclude Include="Modules\ModuleInput.h" />
     <ClInclude Include="Modules\ModuleProgram.h" />
