@@ -53,12 +53,16 @@ update_status ModuleCameraEditor::Update()
 
 void ModuleCameraEditor::SetFOV() {
     f.verticalFov = pi / 4.0f;
+    SetAspectRatio();
+    f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
+}
+
+void ModuleCameraEditor::SetAspectRatio() {
     int width;
     int height;
     SDL_GetWindowSize(App->window->window, &width, &height);
 
     float aspect = (float)width / (float)height;
-    f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * aspect);
 }
 
 // Called before quitting

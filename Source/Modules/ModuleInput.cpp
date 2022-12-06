@@ -32,7 +32,6 @@ bool ModuleInput::Init()
 update_status ModuleInput::Update()
 {
     SDL_Event sdlEvent;
-
     while (SDL_PollEvent(&sdlEvent) != 0)
     {
         switch (sdlEvent.type)
