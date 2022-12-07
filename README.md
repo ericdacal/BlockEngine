@@ -1,4 +1,5 @@
 <h1 align=“center”>Block Engine</h1>
+<p align="center"><img width="480" alt="A-Frame" src="./Game/assets/icon.png"></a></p>
 <p align="center"><b>A graphic engine for building videogames with Lego style.</b></p>
 
 ## Usage
