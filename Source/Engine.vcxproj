@@ -205,7 +205,6 @@
     <ClCompile Include="Modules\ModuleInput.cpp" />
     <ClCompile Include="Modules\ModuleProgram.cpp" />
     <ClCompile Include="Modules\ModuleRender.cpp" />
-    <ClCompile Include="Modules\ModuleRenderExercise.cpp" />
     <ClCompile Include="Modules\ModuleTexture.cpp" />
     <ClCompile Include="Modules\ModuleWindow.cpp" />
   </ItemGroup>
@@ -298,7 +297,6 @@
     <ClInclude Include="Modules\ModuleInput.h" />
     <ClInclude Include="Modules\ModuleProgram.h" />
     <ClInclude Include="Modules\ModuleRender.h" />
-    <ClInclude Include="Modules\ModuleRenderExercise.h" />
     <ClInclude Include="Modules\ModuleTexture.h" />
     <ClInclude Include="Modules\ModuleWindow.h" />
   </ItemGroup>

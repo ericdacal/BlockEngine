@@ -22,9 +22,6 @@
     <ClCompile Include="Modules\ModuleRender.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="Modules\ModuleRenderExercise.cpp">
-      <Filter>source\modules</Filter>
-    </ClCompile>
     <ClCompile Include="Modules\ModuleWindow.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
@@ -196,9 +193,6 @@
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleRender.h">
-      <Filter>source\modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Modules\ModuleRenderExercise.h">
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleWindow.h">
