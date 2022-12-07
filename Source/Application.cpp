@@ -21,8 +21,8 @@ Application::Application()
 	modules.push_back(camEditor = new ModuleCameraEditor());
 	modules.push_back(debugDraw = new ModuleDebugDraw());
 	modules.push_back(texture= new ModuleTexture());
-	modules.push_back(gui = new ModuleGui());
 	modules.push_back(drawer = new ModuleDrawer());
+	modules.push_back(gui = new ModuleGui());
 }
 
 Application::~Application()
