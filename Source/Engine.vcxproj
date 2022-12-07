@@ -81,6 +81,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(VC_ExecutablePath_x64);$(CommonExecutablePath)</ExecutablePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <OutDir>$(ProjectDir)/../Game</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -134,8 +137,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>.\Libs\SDL\include;.\Libs\glew-2.1.0\include;.\Libs\imgui;.\Libs\MathGeoLib-1.5\MathGeoLib-1.5\src;.\DirectXTex\include;.\Libs\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\Libs\SDL\include;.\Libs\glew-2.1.0\include;.\Libs\imgui;.\Libs\MathGeoLib-1.5\MathGeoLib-1.5\src;.\Libs\DirectXTex\include;.\Libs\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <GenerateSourceDependencies>true</GenerateSourceDependencies>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
