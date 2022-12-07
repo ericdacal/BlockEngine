@@ -130,7 +130,7 @@ void Model::LoadMaterials(const aiScene* scene)
 			}		
 		}
 		else {
-			diffusePath = aiString("../Source/resources/Textures/no_texture.png");
+			diffusePath = aiString("../Game/assets/resources/Textures/no_texture.png");
 			const DirectX::ScratchImage* im = App->texture->Load(diffusePath.data);
 			LoadTextureGPU(im, i);
 		}
