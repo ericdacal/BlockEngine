@@ -10,25 +10,24 @@
 class Mesh
 {
 public:
-	Mesh(unsigned int material_index)
-	{
-		this->material_index=material_index;
-	}
+	Mesh(unsigned int materialIndex);
 	void LoadVBO(const aiMesh* mesh);
 	void LoadVBOInterleaved(const aiMesh* mesh);
 	void LoadEBO(const aiMesh* mesh);
 	void CreateVAO();
 	void CreateVAOInterleaved();
 	void Draw(const std::vector< std::vector< unsigned > >& material, unsigned int programId);
+	int getNumVertices();
+	int getNumTriangles();
 	
 private:
 	GLuint vao;
 	GLuint vbo;
 	GLuint ebo;
-	int mVertices;
-	int num_vertices;
-	int num_indices;
-	unsigned int material_index;
+	int numVertices;
+	int numIndices;
+	int numTriangles;
+	unsigned int materialIndex;
 	float2* uvs;
 };
 #endif

@@ -1,5 +1,4 @@
 #include <assimp/scene.h>
-#include <assimp/cimport.h>
 #include <assimp/postprocess.h>
 #include "Application.h"
 #include "Mesh.h"
@@ -57,12 +56,14 @@ unsigned Model::CompileShader(unsigned type, const char* source)
 void Model::Clean() 
 {
 	materials.clear();
-	material_index.clear();
+	materialIndex.clear();
 	meshes.clear();
 }
 
 void Model::Load(const char* file_name)
 {
+	numVertices = 0;
+	numTriangles = 0;
 	Clean();
 	APPLOG("Loading Shader files");
 	//App->logs.push_back({ "Loading Shader files", ImVec4(1.f,0.f,0.f,1.f) });
@@ -96,7 +97,6 @@ void Model::Load(const char* file_name)
 
 void Model::LoadMaterials(const aiScene* scene)
 {
-	aiString path;
 	aiString file;
 	APPLOG("Num. Materials: %d", scene->mNumMaterials);
 	materials.reserve(scene->mNumMaterials);
@@ -113,25 +113,25 @@ void Model::LoadMaterials(const aiScene* scene)
 					if (not findPath("..\\Game\\assets\\resources\\Textures\\%s", file.data)) {
 						APPLOG("Not exist ..\\Game\\assets\\resources\\Textures\\%s", file.data);
 						assert("Texture not find");
-						path = aiString("../Game/assets/resources/Textures/no_texture.png");
-						const DirectX::ScratchImage* im = App->texture->Load(path.data);
+						diffusePath = aiString("../Game/assets/resources/Textures/no_texture.png");
+						const DirectX::ScratchImage* im = App->texture->Load(diffusePath.data);
 						LoadTextureGPU(im, i);
 						find = false;
 					}
-					else path = aiString("../Game/assets/resources/Textures/");
+					else diffusePath = aiString("../Game/assets/resources/Textures/");
 				}
-				else path = aiString("../Game/assets/resources/");;
+				else diffusePath = aiString("../Game/assets/resources/");;
 			}
-			else path = aiString("./");
+			else diffusePath = aiString("./");
 			if (find) {
-				path.Append(file.data);
-				const DirectX::ScratchImage* im = App->texture->Load(path.data);
+				diffusePath.Append(file.data);
+				const DirectX::ScratchImage* im = App->texture->Load(diffusePath.data);
 				LoadTextureGPU(im, i);
 			}		
 		}
 		else {
-			path = aiString("../Source/resources/Textures/no_texture.png");
-			const DirectX::ScratchImage* im = App->texture->Load(path.data);
+			diffusePath = aiString("../Source/resources/Textures/no_texture.png");
+			const DirectX::ScratchImage* im = App->texture->Load(diffusePath.data);
 			LoadTextureGPU(im, i);
 		}
 	}
@@ -149,6 +149,8 @@ void Model::LoadMeshes(const aiScene* scene)
 		mesh->LoadEBO(scene->mMeshes[i]);
 		mesh->CreateVAOInterleaved();
 		meshes.push_back(mesh);
+		numVertices += mesh->getNumVertices();
+		numTriangles += mesh->getNumTriangles();
 	}
 }
 
@@ -221,6 +223,16 @@ void Model::LoadTextureGPU(const DirectX::ScratchImage* im, int index) {
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, im->GetMetadata().width, im->GetMetadata().height, 0, format, type, im->GetPixels());
 	glGenerateMipmap(GL_TEXTURE_2D);
 	glActiveTexture(GL_ACTIVE_TEXTURE);
+}
+
+const char* Model::getDiffuseTexture() {
+	return diffusePath.data;
+}
+int Model::getNumVertices() {
+	return numVertices;
+}
+int Model::getNumTriangles() {
+	return numTriangles;
 }
 
 

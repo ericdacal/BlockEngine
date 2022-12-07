@@ -1,6 +1,8 @@
 #include "ModuleDrawer.h"
 #include "../Application.h"
 #include "ModuleWindow.h"
+#include "ModuleGui.h"
+#include "../Gui/GuiMesh.h"
 #include "SDL.h"
 
 
@@ -37,6 +39,10 @@ update_status ModuleDrawer::Update()
 	m.Draw();
 
 	return ret;
+}
+
+Model  ModuleDrawer::getModel() {
+	return m;
 }
 
 void ModuleDrawer::changeModel(const char* path) {

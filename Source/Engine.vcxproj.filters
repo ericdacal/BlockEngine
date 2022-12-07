@@ -49,12 +49,6 @@
     <ClCompile Include="Modules\ModuleTexture.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>source\modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>source\modules</Filter>
-    </ClCompile>
     <ClCompile Include="Modules\ModuleDrawer.cpp">
       <Filter>source\modules</Filter>
     </ClCompile>
@@ -172,6 +166,12 @@
     <ClCompile Include="Gui\GuiMesh.cpp">
       <Filter>source\gui</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -232,12 +232,6 @@
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleTexture.h">
-      <Filter>source\modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>source\modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
       <Filter>source\modules</Filter>
     </ClInclude>
     <ClInclude Include="Modules\ModuleDrawer.h">
@@ -446,6 +440,12 @@
     </ClInclude>
     <ClInclude Include="Gui\GuiMesh.h">
       <Filter>source\gui</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,10 @@ class GuiMesh : public GuiComponent
 {
 public:
 
-	GuiMesh() : GuiComponent("Mesh Info")
+	GuiMesh() : GuiComponent("Mesh Information")
 	{
 	}
 	bool Draw();
+
 };
 #endif
