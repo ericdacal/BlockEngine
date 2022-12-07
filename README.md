@@ -21,6 +21,10 @@ There are a top side menu that have two items:
   - Help option
   - Window option
 
+## Additional Functionalites
+- If the texture of model is not find, engine put a non-texture template (resources/Texture/no_texture.png)
+- Engine have a windows system that allow to have the diferent Imgui windows visible or invisible.  
+
 ## Members
 
 Eric Dacal Sánchez - Main programmer
