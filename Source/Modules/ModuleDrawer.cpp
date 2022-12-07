@@ -18,7 +18,7 @@ bool ModuleDrawer::Init() {
 	bool ret = true;
 	
 	m = Model();
-	m.Load("../Source/resources/BakerHouse.fbx");
+	m.Load("../Game/assets/resources/BakerHouse.fbx");
 	return true;
 }
 

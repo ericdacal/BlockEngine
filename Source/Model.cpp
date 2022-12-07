@@ -108,19 +108,19 @@ void Model::LoadMaterials(const aiScene* scene)
 		{
 			if (not findPath(".\\%s", file.data)) {
 				APPLOG("Not exist .\\%s", file.data);
-				if (not findPath("..\\Source\\resources\\%s", file.data)) {
-					APPLOG("Not exist ..\\Source\\resources\\%s", file.data);
-					if (not findPath("..\\Source\\resources\\Textures\\%s", file.data)) {
-						APPLOG("Not exist ..\\Source\\resources\\Textures\\%s", file.data);
+				if (not findPath("..\\Game\\assets\\resources\\%s", file.data)) {
+					APPLOG("Not exist ..\\Game\\assets\\resources\\%s", file.data);
+					if (not findPath("..\\Game\\assets\\resources\\Textures\\%s", file.data)) {
+						APPLOG("Not exist ..\\Game\\assets\\resources\\Textures\\%s", file.data);
 						assert("Texture not find");
-						path = aiString("../Source/resources/Textures/no_texture.png");
+						path = aiString("../Game/assets/resources/Textures/no_texture.png");
 						const DirectX::ScratchImage* im = App->texture->Load(path.data);
 						LoadTextureGPU(im, i);
 						find = false;
 					}
-					else path = aiString("../Source/resources/Textures/");
+					else path = aiString("../Game/assets/resources/Textures/");
 				}
-				else path = aiString("../Source/resources/");;
+				else path = aiString("../Game/assets/resources/");;
 			}
 			else path = aiString("./");
 			if (find) {
