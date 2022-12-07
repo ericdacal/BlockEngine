@@ -169,6 +169,9 @@
     <ClCompile Include="Libs\MathGeoLib-1.5\MathGeoLib-1.5\src\Time\Clock.cpp">
       <Filter>source\MathGeoLib\Time</Filter>
     </ClCompile>
+    <ClCompile Include="Gui\GuiMesh.cpp">
+      <Filter>source\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -440,6 +443,9 @@
     </ClInclude>
     <ClInclude Include="Libs\MathGeoLib-1.5\MathGeoLib-1.5\src\Time\Clock.h">
       <Filter>source\MathGeoLib\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui\GuiMesh.h">
+      <Filter>source\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

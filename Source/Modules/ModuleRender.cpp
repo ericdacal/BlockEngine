@@ -37,6 +37,7 @@ void __stdcall OurOpenGLErrorFunction(GLenum source, GLenum type, GLuint id, GLe
 	case GL_DEBUG_SEVERITY_NOTIFICATION: tmp_severity = "notification"; break;
 	};
 	APPLOG("<Source:%s> <Type:%s> <Severity:%s> <ID:%d> <Message:%s>\n", tmp_source, tmp_type, tmp_severity, id, message);
+	App->NewLog("<Source:%s> <Type:%s> <Severity:%s> <ID:%d> <Message:%s>\n", 0);
 }
 
 ModuleRender::ModuleRender()
@@ -75,6 +76,7 @@ bool ModuleRender::Init()
 	if (err != GLEW_OK) {
 		// Problem: glewInit failed, something is seriously wrong.
 		APPLOG("glewInit failed: %s", glewGetErrorString(err));
+		App->NewLog("glewInit failed: %s", 0);
 		exit(1);
 	}
 
@@ -84,8 +86,9 @@ bool ModuleRender::Init()
 	SDL_GetVersion(&linked);
 
 	APPLOG("We compiled against SDL version %d.%d.%d \n", compiled.major, compiled.minor, compiled.patch);
+	App->NewLog("We compiled against SDL version %d.%d.%d \n", 0);
 	APPLOG("But we are linking against SDL version %d.%d.%d\n", linked.major, linked.minor, linked.patch);
-
+	App->NewLog("But we are linking against SDL version %d.%d.%d\n", 0);
 
 
 	APPLOG("Using Glew %s", glewGetString(GLEW_VERSION));

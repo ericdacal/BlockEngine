@@ -86,6 +86,7 @@ void Application::NewLog(const char* message, int priority) {
 
 	struct AppLog tmp = { message, priority, dt };
 	logs.push_back(tmp);
+	//if (logs.size() > 1000) logs.erase(logs.begin());
 }
 
 void  Application::RequestBrowser(const char* url) {

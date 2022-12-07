@@ -15,11 +15,13 @@ ModuleWindow::~ModuleWindow()
 bool ModuleWindow::Init()
 {
 	APPLOG("Init SDL window & surface");
+	App->NewLog("Init SDL window & surface", 0);
 	bool ret = true;
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		APPLOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
+		App->NewLog("SDL_VIDEO could not initialize! SDL_Error: %s\n", 0);
 		ret = false;
 	}
 	else
@@ -39,6 +41,7 @@ bool ModuleWindow::Init()
 		if(window == NULL)
 		{
 			APPLOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			App->NewLog("Window could not be created! SDL_Error: %s\n", 0);
 			ret = false;
 		}
 		else
@@ -97,6 +100,7 @@ void ModuleWindow::SetWindowSize(int width, int height) {
 bool ModuleWindow::CleanUp()
 {
 	APPLOG("Destroying SDL window and quitting all SDL systems");
+	App->NewLog("Destroying SDL window and quitting all SDL systems", 0);
 
 	//Destroy window
 	if(window != NULL)

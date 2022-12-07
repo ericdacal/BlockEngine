@@ -7,6 +7,7 @@
 #include "../Gui/GuiConfiguration.h"
 #include "../Gui/GuiHardware.h"
 #include "../Gui/GuiAbout.h"
+#include "../Gui/GuiMesh.h"
 #include <imgui_impl_sdl.h>
 
 
@@ -48,6 +49,7 @@ bool ModuleGui::Init()
 	components.push_back(config = new GuiConfiguration());
 	components.push_back(hardware = new GuiHardware());
 	components.push_back(about = new GuiAbout());
+	components.push_back(mesh = new GuiMesh());
 
 
 	return true;

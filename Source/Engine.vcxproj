@@ -157,6 +157,7 @@
     <ClCompile Include="Gui\GuiConsole.cpp" />
     <ClCompile Include="Gui\GuiHardware.cpp" />
     <ClCompile Include="Gui\GuiMenu.cpp" />
+    <ClCompile Include="Gui\GuiMesh.cpp" />
     <ClCompile Include="Libs\imgui\imgui.cpp" />
     <ClCompile Include="Libs\imgui\imgui_demo.cpp" />
     <ClCompile Include="Libs\imgui\imgui_draw.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Gui\GuiConsole.h" />
     <ClInclude Include="Gui\GuiHardware.h" />
     <ClInclude Include="Gui\GuiMenu.h" />
+    <ClInclude Include="Gui\GuiMesh.h" />
     <ClInclude Include="Libs\imgui\imconfig.h" />
     <ClInclude Include="Libs\imgui\imgui.h" />
     <ClInclude Include="Libs\imgui\imgui_impl_opengl3.h" />

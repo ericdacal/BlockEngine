@@ -23,6 +23,7 @@ bool ModuleCameraEditor::Init()
     //SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
    
     APPLOG("Creating camera matrix, view and projection");
+    App->NewLog("Creating camera matrix, view and projection", 0);
     bool ret = true;
 
     center = float3(0.f, 0.f, 0.f);
