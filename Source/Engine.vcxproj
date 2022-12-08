@@ -301,6 +301,7 @@
     <ClInclude Include="Modules\ModuleRender.h" />
     <ClInclude Include="Modules\ModuleTexture.h" />
     <ClInclude Include="Modules\ModuleWindow.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Libs\MathGeoLib-1.5\MathGeoLib-1.5\src\Geometry\KDTree.inl" />
@@ -312,6 +313,12 @@
     <None Include="Shaders\base_vert.glsl" />
     <None Include="Shaders\frag.glsl" />
     <None Include="Shaders\vert.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BlockEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\assets\resources\icono32x32.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

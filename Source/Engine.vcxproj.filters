@@ -447,6 +447,7 @@
     <ClInclude Include="Mesh.h">
       <Filter>source</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="source">
@@ -511,5 +512,11 @@
     <None Include="Libs\MathGeoLib-1.5\MathGeoLib-1.5\src\Geometry\TriangleMesh_IntersectRay_SSE.inl">
       <Filter>source\MathGeoLib\Geometry</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BlockEngine.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Game\assets\resources\icono32x32.ico" />
   </ItemGroup>
 </Project>
