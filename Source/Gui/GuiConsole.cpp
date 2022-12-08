@@ -12,6 +12,10 @@ bool GuiConsole::Draw()
 	if (ImGui::Checkbox("Active", &active)) {
 
 	}
+	ImGui::SameLine();
+	if(ImGui::Button("Clear")) {
+		App->ClearLogs();
+	}
 	std::vector<AppLog> logs = App->GetLogs();
 	for (int i = 0; i < logs.size(); i++)
 	{
