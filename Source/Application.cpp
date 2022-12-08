@@ -74,7 +74,8 @@ void Application::setMaxFrameRate(float maxFps) {
 }
 
 void Application::NewLog(const char* message, int priority) {
-	//if (appLogs.size() > 1000) appLogs.erase(appLogs.begin());
+	list<AppLog>::iterator it = appLogs.begin();
+	if (appLogs.size() > 1000) appLogs.erase(it);
 	// current date/time based on current system
 	time_t now = time(0);
 
@@ -94,7 +95,7 @@ void  Application::RequestBrowser(const char* url) {
 	ShellExecute(0, "open", url, 0, 0, 1);
 }
 
-std::vector<AppLog> Application::GetLogs() {
+std::list<AppLog> Application::GetLogs() {
 	return appLogs;
 }
 

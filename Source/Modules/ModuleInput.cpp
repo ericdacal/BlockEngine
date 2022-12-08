@@ -100,7 +100,8 @@ update_status ModuleInput::Update()
         App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
-    if (keyboard[SDL_SCANCODE_UP] && rightMouseButton) {
+
+    /*if (keyboard[SDL_SCANCODE_UP] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateX(0.01f * currentSpeed);
         float3 oldFront = f->front.Normalized();
@@ -139,7 +140,7 @@ update_status ModuleInput::Update()
         f->up = (rotationDeltaMatrix.MulDir(oldUp));
         App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
-    }
+    }*/
     if (keyboard[SDL_SCANCODE_LALT]) {
         leftAltButton = true;
     }
@@ -173,6 +174,26 @@ update_status ModuleInput::Update()
                     App->camEditor->changeCameraMode(1);
                     App->camEditor->rotateAzimuth(sdlEvent.motion.xrel * 0.001);
                     App->camEditor->rotatePolar(sdlEvent.motion.yrel * 0.001);
+                    App->camEditor->ReloadViewMatrix();
+                }
+                if (rightMouseButton) {
+                    SDL_SetRelativeMouseMode(SDL_TRUE);
+                    App->camEditor->changeCameraMode(0);
+                    //App->camEditor->RotatePitch(sdlEvent.motion.yrel);
+                    App->camEditor->RotateYaw(sdlEvent.motion.yrel);
+                    /*float3x3 rotationDeltaMatrix = float3x3::identity;
+                    rotationDeltaMatrix = rotationDeltaMatrix.RotateX(-(sdlEvent.motion.yrel * 0.001));
+                    float3 oldFront = f->front.Normalized();
+                    f->front = (rotationDeltaMatrix.MulDir(oldFront));
+                    float3 oldUp = f->up.Normalized();
+                    f->up = (rotationDeltaMatrix.MulDir(oldUp));
+                    rotationDeltaMatrix = float3x3::identity;
+                    rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-(sdlEvent.motion.xrel * 0.001));
+                    oldFront = f->front.Normalized();
+                    f->front = (rotationDeltaMatrix.MulDir(oldFront));*/
+
+              //rotationDeltaMatrix = float3x3::identity;
+
                     App->camEditor->ReloadViewMatrix();
                 }
                 break;

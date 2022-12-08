@@ -16,13 +16,14 @@ bool GuiConsole::Draw()
 	if(ImGui::Button("Clear")) {
 		App->ClearLogs();
 	}
-	std::vector<AppLog> logs = App->GetLogs();
-	for (int i = 0; i < logs.size(); i++)
+	std::list<AppLog> logs = App->GetLogs();
+	for (std::list<AppLog>::iterator it = logs.begin(); it != logs.end(); ++it) 
 	{
-		ImVec4 color = ImVec4(1.f,1.f,0.f,1.f);
-		ImGui::TextColored(color, logs[i].time);
+		ImVec4 color = ImVec4(1.f, 1.f, 0.f, 1.f);
+		ImGui::TextColored(color, it->time);
 		ImGui::SameLine();
-		ImGui::TextUnformatted(logs[i].message);
+		ImGui::TextUnformatted(it->message);
 	}
+	
 	return true;
 }

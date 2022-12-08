@@ -28,6 +28,8 @@ public:
 	void changeCameraMode(int mode);
 	Frustum* GetFustrum();
 	void ReloadViewMatrix();
+	void RotatePitch(float units);
+	void RotateYaw(float units);
 
 	// Function to orbit camara
 	void zoom(const float units);

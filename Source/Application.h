@@ -33,7 +33,7 @@ public:
 	void NewLog(const char*, int priority);
 	void RequestBrowser(const char* url);
 	void ClearLogs();
-	std::vector<AppLog> GetLogs();
+	std::list<AppLog> GetLogs();
 	void setMaxFrameRate(float maxFps);
 
 public:
@@ -55,7 +55,7 @@ private:
 	std::list<Module*> modules;
 	
 	// Vector that allocate logs 
-	std::vector<AppLog> appLogs;
+	std::list<AppLog> appLogs;
 
 	// Elapsed time between frames
 	float elapsed;
