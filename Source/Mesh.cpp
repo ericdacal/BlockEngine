@@ -97,7 +97,7 @@ void Mesh::LoadEBO(const aiMesh* mesh)
 	
 	for (unsigned i = 0; i < mesh->mNumFaces; ++i)
 	{
-		APPLOG("Num Indices: %d", mesh->mFaces[i].mNumIndices);
+		//APPLOG("Num Indices: %d", mesh->mFaces[i].mNumIndices);
 	
 		assert(mesh->mFaces[i].mNumIndices == 3); // note: assume triangles = 3 indices per face
 		if (mesh->mFaces[i].mNumIndices == 3) {
