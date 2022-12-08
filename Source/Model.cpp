@@ -192,33 +192,34 @@ void Model::LoadTextureGPU(const DirectX::ScratchImage* im, int index) {
 	APPLOG("%d", im->GetMetadata().format);
 	switch (im->GetMetadata().format)
 	{
-	case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
-		internalFormat = GL_RGBA8;
-		format = GL_RGBA;
-		type = GL_UNSIGNED_BYTE;
-		break;
-	case DXGI_FORMAT_R8G8B8A8_UNORM:
-		internalFormat = GL_RGBA8;
-		format = GL_RGBA;
-		type = GL_UNSIGNED_BYTE;
-		break;
-	case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
-		internalFormat = GL_RGBA8;
-		format = GL_BGRA;
-		type = GL_UNSIGNED_BYTE;
-		break;
-	case DXGI_FORMAT_B8G8R8A8_UNORM:
-		internalFormat = GL_RGBA8;
-		format = GL_BGRA;
-		type = GL_UNSIGNED_BYTE;
-		break;
-	case DXGI_FORMAT_B5G6R5_UNORM:
-		internalFormat = GL_RGB8;
-		format = GL_BGR;
-		type = GL_UNSIGNED_BYTE;
-		break;
-	default:
-		assert(false && "Unsupported format");
+		case DXGI_FORMAT_R8G8B8A8_UNORM_SRGB:
+			internalFormat = GL_RGBA8;
+			format = GL_RGBA;
+			type = GL_UNSIGNED_BYTE;
+			break;
+		case DXGI_FORMAT_R8G8B8A8_UNORM:
+			internalFormat = GL_RGBA8;
+			format = GL_RGBA;
+			type = GL_UNSIGNED_BYTE;
+			break;
+		case DXGI_FORMAT_B8G8R8A8_UNORM_SRGB:
+			internalFormat = GL_RGBA8;
+			format = GL_BGRA;
+			type = GL_UNSIGNED_BYTE;
+			break;
+		case DXGI_FORMAT_B8G8R8A8_UNORM:
+			internalFormat = GL_RGBA8;
+			format = GL_BGRA;
+			type = GL_UNSIGNED_BYTE;
+			break;
+		case DXGI_FORMAT_B5G6R5_UNORM:
+			internalFormat = GL_RGB8;
+			format = GL_BGR;
+			type = GL_UNSIGNED_BYTE;
+			break;
+		default:
+			APPLOG("Unsopported format");
+			assert(false && "Unsupported format");
 	}
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, im->GetMetadata().width, im->GetMetadata().height, 0, format, type, im->GetPixels());
 	glGenerateMipmap(GL_TEXTURE_2D);

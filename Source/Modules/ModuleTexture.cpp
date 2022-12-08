@@ -44,8 +44,9 @@ DirectX::ScratchImage* ModuleTexture::LoadTextureCPU(const WCHAR* filePath) {
 	HRESULT flipResult = DirectX::FlipRotate(imageData->GetImages(), imageData->GetImageCount(), imageData->GetMetadata(), DirectX::TEX_FR_FLIP_VERTICAL, *destImage);
 	if (FAILED(flipResult)) {
 		APPLOG("Error Flip Image");
+		APPLOG("HRESULT %d", flipResult);
 		assert("Error Flipping Image");
-		return NULL;
+		return imageData;
 	}
 	return destImage;
 }

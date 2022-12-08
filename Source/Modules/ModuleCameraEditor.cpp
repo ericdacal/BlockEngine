@@ -138,38 +138,6 @@ void ModuleCameraEditor::getSphericalAngles() {
     azimuthAngle = acos((f.pos.x - center.x) / (radius * cos(polarAngle)));
 }
 
-void ModuleCameraEditor::RotatePitch(float units) {
-    float3x3 rotationDeltaMatrix = float3x3::identity;
-    rotationDeltaMatrix = rotationDeltaMatrix.RotateX(-(units * 0.001));
-    float3 oldFront = f.front.Normalized();
-    float3 oldUp = f.up.Normalized();
-    f.up = (rotationDeltaMatrix.MulDir(oldUp));
-    /*f->front = (rotationDeltaMatrix.MulDir(oldFront));
-   
-    f->up = (rotationDeltaMatrix.MulDir(oldUp));
-    rotationDeltaMatrix = float3x3::identity;
-    rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-(sdlEvent.motion.xrel * 0.001));
-    oldFront = f->front.Normalized();
-    f->front = (rotationDeltaMatrix.MulDir(oldFront))*/
-}
-
-void ModuleCameraEditor::RotateYaw(float units) {
-    //LookAt(f.pos, )
-    /*float3x3 rotationDeltaMatrix = float3x3::identity;
-    rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-(units * 0.001));
-    float3 oldFront = f.front.Normalized();
-    float3 oldUp = f.up.Normalized();
-    f.up = (rotationDeltaMatrix.MulDir(oldUp));
-    f->front = (rotationDeltaMatrix.MulDir(oldFront));
-
-    f->up = (rotationDeltaMatrix.MulDir(oldUp));
-    rotationDeltaMatrix = float3x3::identity;
-    rotationDeltaMatrix = rotationDeltaMatrix.RotateY(-(sdlEvent.motion.xrel * 0.001));
-    oldFront = f->front.Normalized();
-    f->front = (rotationDeltaMatrix.MulDir(oldFront))*/
-}
-
-
 float4x4 ModuleCameraEditor::LookAt(float3 eye, float3 at, float3 up)
 {
     float3 zaxis = (at - eye).Normalized();
