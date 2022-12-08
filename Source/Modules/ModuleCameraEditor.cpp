@@ -85,6 +85,11 @@ bool ModuleCameraEditor::CleanUp()
 
 void ModuleCameraEditor::changeCameraMode(int mode) {
     if(this->mode != mode && mode == 1) getSphericalAngles();
+    if (this->mode != mode && mode == 0) {
+        f.pos = float3(0.0f, 1.0f, 8.0f);
+        f.front = -float3::unitZ;
+        f.up = float3::unitY;
+    }
     this->mode = mode;
 }
 
