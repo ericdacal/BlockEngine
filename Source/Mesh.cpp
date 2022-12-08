@@ -3,7 +3,20 @@
 #include "Mesh.h"
 
 
+Mesh::Mesh(unsigned int materialIndex)
+{
+	this->materialIndex = materialIndex;
+	numIndices = 0;
+	numTriangles = 0;
+	numVertices = 0;
+}
 
+int Mesh::getNumVertices() {
+	return numVertices;
+}
+int Mesh::getNumTriangles() {
+	return numTriangles;
+}
 
 void Mesh::CreateVAO()
 {
@@ -15,7 +28,7 @@ void Mesh::CreateVAO()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * num_vertices));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * numVertices));
 }
 
 void Mesh::CreateVAOInterleaved() 
@@ -47,7 +60,7 @@ void Mesh::LoadVBO(const aiMesh* mesh) {
 		uvs[i] = float2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
 	}
 	glUnmapBuffer(GL_ARRAY_BUFFER);
-	num_vertices = mesh->mNumVertices;
+	numVertices = mesh->mNumVertices;
 }
 
 
@@ -67,7 +80,8 @@ void Mesh::LoadVBOInterleaved(const aiMesh* mesh)
 		*(buffer++) = mesh->mTextureCoords[0][i].y;
 	}
 	glUnmapBuffer(GL_ARRAY_BUFFER);
-	num_vertices = mesh->mNumVertices;
+	APPLOG("Mesh Vertices: %d", mesh->mNumVertices);
+	numVertices = mesh->mNumVertices;
 }
 
 
@@ -83,7 +97,8 @@ void Mesh::LoadEBO(const aiMesh* mesh)
 	
 	for (unsigned i = 0; i < mesh->mNumFaces; ++i)
 	{
-		APPLOG("Num Indices: %d", mesh->mFaces[i].mNumIndices);
+		//APPLOG("Num Indices: %d", mesh->mFaces[i].mNumIndices);
+	
 		assert(mesh->mFaces[i].mNumIndices == 3); // note: assume triangles = 3 indices per face
 		if (mesh->mFaces[i].mNumIndices == 3) {
 			*(indices++) = mesh->mFaces[i].mIndices[0];
@@ -92,7 +107,9 @@ void Mesh::LoadEBO(const aiMesh* mesh)
 		}
 	}
 	glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-	num_indices = mesh->mNumFaces * 3;
+	APPLOG("Mesh Faces: %d", mesh->mNumFaces);
+	numTriangles = mesh->mNumFaces;
+	numIndices = mesh->mNumFaces * 3;
 }
 
 void Mesh::Draw(const std::vector< std::vector< unsigned > >& materials, unsigned int programId)
@@ -107,8 +124,8 @@ void Mesh::Draw(const std::vector< std::vector< unsigned > >& materials, unsigne
 	glUniform1i(glGetUniformLocation(programId, "diffuse"), 0);
 	glBindVertexArray(vao);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, materials[material_index][0]);
+	glBindTexture(GL_TEXTURE_2D, materials[materialIndex][0]);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, nullptr);
 	glBindVertexArray(0);
 }

@@ -11,6 +11,7 @@ class ModuleDrawer : public Module
 public:
 	ModuleDrawer();
 	~ModuleDrawer();
+	Model getModel();
 	void changeModel(const char* path);
 	bool Init();
 	update_status PreUpdate();

@@ -12,7 +12,6 @@ class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
 class ModuleInput;
-class ModuleRenderExercise;
 class ModuleGui;
 class ModuleProgram;
 class ModuleDebugDraw;
@@ -33,7 +32,8 @@ public:
 	bool CleanUp();
 	void NewLog(const char*, int priority);
 	void RequestBrowser(const char* url);
-	std::vector<AppLog> GetLogs();
+	void ClearLogs();
+	std::list<AppLog> GetLogs();
 	void setMaxFrameRate(float maxFps);
 
 public:
@@ -41,7 +41,6 @@ public:
 	ModuleWindow* window = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleProgram* program = nullptr;
-	ModuleRenderExercise* exercise = nullptr;
 	ModuleDebugDraw* debugDraw = nullptr;
 	ModuleGui* gui = nullptr;
 	ModuleCameraEditor* camEditor = nullptr;
@@ -56,7 +55,7 @@ private:
 	std::list<Module*> modules;
 	
 	// Vector that allocate logs 
-	std::vector<AppLog> logs;
+	std::list<AppLog> appLogs;
 
 	// Elapsed time between frames
 	float elapsed;

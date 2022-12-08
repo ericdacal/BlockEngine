@@ -5,6 +5,7 @@
 #include "GuiConsole.h"
 #include "GuiConfiguration.h"
 #include "GuiHardware.h"
+#include "GuiMesh.h"
 
 bool GuiMenu::Draw()
 {
@@ -38,6 +39,9 @@ bool GuiMenu::Draw()
 
 			}
 			if (ImGui::Checkbox("Hardware", &App->gui->hardware->active)) {
+
+			}
+			if (ImGui::Checkbox("Mesh Information", &App->gui->mesh->active)) {
 
 			}
 			ImGui::EndMenu();

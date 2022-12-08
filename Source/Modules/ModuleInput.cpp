@@ -34,7 +34,7 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::Update()
 {
-   
+    shiftButton = false;
     leftAltButton = false;
     leftMouseButton = false;
     rightMouseButton = false;
@@ -44,7 +44,7 @@ update_status ModuleInput::Update()
     deltaTime = (double)((currentFrame - lastFrame) * 1000 / (double)SDL_GetPerformanceFrequency());
     lastFrame = currentFrame;
 
-    float currentSpeed = (cameraSpeed * deltaTime);
+    
     SDL_Event sdlEvent;
     Frustum* f = App->camEditor->GetFustrum();
 
@@ -64,6 +64,12 @@ update_status ModuleInput::Update()
         rightMouseButton = true;
     }
 
+    if (keyboard[SDL_SCANCODE_LSHIFT]) {
+        cameraSpeed = 0.1;
+    }
+    else cameraSpeed = 0.05;
+
+    float currentSpeed = (cameraSpeed * deltaTime);
 
     if (keyboard[SDL_SCANCODE_Q] && rightMouseButton) {
         f->pos = (pos + (up * currentSpeed));
@@ -100,6 +106,7 @@ update_status ModuleInput::Update()
         App->camEditor->changeCameraMode(0);
         App->camEditor->ReloadViewMatrix();
     }
+
     if (keyboard[SDL_SCANCODE_UP] && rightMouseButton) {
         float3x3 rotationDeltaMatrix = float3x3::identity;
         rotationDeltaMatrix = rotationDeltaMatrix.RotateX(0.01f * currentSpeed);
@@ -143,7 +150,7 @@ update_status ModuleInput::Update()
     if (keyboard[SDL_SCANCODE_LALT]) {
         leftAltButton = true;
     }
-
+   
     
     while (SDL_PollEvent(&sdlEvent) != 0)
     {
