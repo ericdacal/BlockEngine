@@ -9,6 +9,7 @@
 #include "Modules/ModuleCameraEditor.h"
 #include "Modules/ModuleTexture.h"
 #include "Modules/ModuleDrawer.h"
+#include <math.h>  
 
 using namespace std;
 
@@ -57,19 +58,14 @@ update_status Application::Update()
 
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		ret = (*it)->PostUpdate();
+	if (maxFps > 0) {
+		float milliseconds_limit = 1000.f / maxFps;
+		SDL_Delay(floor(milliseconds_limit - elapsed));
+	}
 	Uint64 end = SDL_GetPerformanceCounter();
 	elapsed = (end - start) / (float)SDL_GetPerformanceFrequency();
 	milliseconds.push_back(elapsed * 1000);
 	fps.push_back(1.0f / elapsed);
-	/*if (maxFps > 0) {
-		float milliseconds_limit = 1000.f / maxFps;
-		APPLOG("ELAPSED: %f", elapsed * 1000);
-		APPLOG("MILLISECONDS LIMIT: %f", milliseconds_limit);
-		APPLOG("DELAY: %f", milliseconds_limit - (elapsed * 1000));
-		if (elapsed < milliseconds_limit) {
-			SDL_Delay(milliseconds_limit - (elapsed * 1000));
-		}
-	}*/
 	return ret;
 }
 
