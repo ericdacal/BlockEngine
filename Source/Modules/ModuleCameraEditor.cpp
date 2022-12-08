@@ -19,9 +19,7 @@ ModuleCameraEditor::~ModuleCameraEditor()
 
 // Called before render is available
 bool ModuleCameraEditor::Init()
-{
-    //SDL_SetHintWithPriority(SDL_HINT_MOUSE_RELATIVE_MODE_WARP, "1", SDL_HINT_OVERRIDE);
-   
+{  
     APPLOG("Creating camera matrix, view and projection");
     App->NewLog("Creating camera matrix, view and projection", 0);
     bool ret = true;
@@ -86,6 +84,7 @@ bool ModuleCameraEditor::CleanUp()
 }
 
 void ModuleCameraEditor::changeCameraMode(int mode) {
+    if(this->mode != mode && mode == 1) getSphericalAngles();
     this->mode = mode;
 }
 
@@ -116,7 +115,7 @@ void  ModuleCameraEditor::rotateAzimuth(const float radians) {
     float3 pos = getPositionCartesian();
 
     float3x3 rotationMatrix = float3x3::identity;
-    rotationMatrix = rotationMatrix.LookAt(-float3::unitX, calculateEye(), float3::unitY, float3::unitY);
+    rotationMatrix = rotationMatrix.LookAt(-float3::unitX, getPositionCartesian(), float3::unitY, float3::unitY);
 
     float3 oldFront = f.front.Normalized();
     f.front = (rotationMatrix.MulDir(oldFront));
@@ -124,12 +123,14 @@ void  ModuleCameraEditor::rotateAzimuth(const float radians) {
     f.up = (rotationMatrix.MulDir(oldUp));
 }
 
-float3 ModuleCameraEditor::calculateEye() {
+float3 ModuleCameraEditor::getPositionCartesian() {
     return float3(center.x + radius * cos(polarAngle) * cos(azimuthAngle), center.y + radius * sin(polarAngle), center.z + radius * cos(polarAngle) * sin(azimuthAngle));
 }
 
-float3 ModuleCameraEditor::getPositionCartesian() {
-    return float3(center.x + radius * cos(polarAngle) * cos(azimuthAngle), center.y + radius * sin(polarAngle), center.z + radius * cos(polarAngle) * sin(azimuthAngle));
+void ModuleCameraEditor::getSphericalAngles() {
+    radius = sqrt(pow(f.pos.x, 2) + pow(f.pos.y, 2) + pow(f.pos.z, 2));
+    polarAngle = asin((f.pos.y - center.y) / radius);
+    azimuthAngle = acos((f.pos.x - center.x) / (radius * cos(polarAngle)));
 }
 
 
@@ -147,7 +148,6 @@ float4x4 ModuleCameraEditor::LookAt(float3 eye, float3 at, float3 up)
         0, 0, 0, 1);
     return viewMatrix;
 }
-
 
 float4x4 ModuleCameraEditor::GetViewMatrix() {
     return view;

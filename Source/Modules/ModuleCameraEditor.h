@@ -44,7 +44,7 @@ private:
 	float azimuthAngle; // Azimuth angle on the orbit camera sphere
 	float polarAngle; // Polar angle on the orbit camera sphere
 	float3 getPositionCartesian();
-	float3 calculateEye();
+	void getSphericalAngles();
 	float toRadians(float degrees);
 	float toDegrees(float radians);
 
