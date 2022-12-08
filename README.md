@@ -1,5 +1,5 @@
 <h1 align=“center”>Block Engine</h1>
-<p align="center"><img width="480" alt="BlockEngine" src="https://github.com/ericdacal/BlockEngine/blob/final-enhancements/Game/assets/resources/icon.png?raw=true"></a></p>
+<p align="center"><img width="480" alt="BlockEngine" src="https://github.com/ericdacal/BlockEngine/blob/final-enhancements/Game/assets/resources/block_logo.png?raw=true"></a></p>
 <p align="center"><b>A graphic engine for building videogames with Lego style.</b></p>
 
 ## Usage
